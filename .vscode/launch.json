@@ -1,0 +1,71 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "GameGUI",
+            "request": "launch",
+            "mainClass": "com.Main.GameGUI",
+            "projectName": "pookey_8c074b51"
+        },
+        {
+            "type": "java",
+            "name": "NewJFrame",
+            "request": "launch",
+            "mainClass": "com.GameUI.NewJFrame",
+            "projectName": "pookey_8c074b51"
+        },
+        {
+            "type": "java",
+            "name": "kuon",
+            "request": "launch",
+            "mainClass": "com.GameUI.kuon",
+            "projectName": "pookey_8c074b51"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "com.GameUI.App",
+            "projectName": "pookey_8c074b51"
+        },
+        {
+            "type": "java",
+            "name": "NewJFrame",
+            "request": "launch",
+            "vmArgs": "--module-path C:\\javafx-sdk-21.0.6\\lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "com.Main.NewJFrame",
+            "projectName": "pookey_8c074b51"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Game",
+            "request": "launch",
+            "mainClass": "com.Main.Game",
+            "projectName": "pookey_8c074b51"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.Main.Main",
+            "projectName": "pookey_8c074b51"
+        },
+        {
+            "type": "java",
+            "name": "Tutor",
+            "request": "launch",
+            "mainClass": "com.Main.Tutor",
+            "projectName": "pookey_8c074b51"
+        }
+    ]
+}
