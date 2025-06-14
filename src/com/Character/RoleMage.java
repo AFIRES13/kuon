@@ -41,7 +41,7 @@ System.out.println("Damage yang dihasilkan sebesar " + (damage));
 public void stunSkill(int turnSekarang, Monster target){
     if (this.mana >= 20) {
         this.mana -= 20;
-        this.stunDuration = turnSekarang + 3; 
+        this.stunDuration = turnSekarang + 2; 
         target.setStunStatus(true);
         this.isStunning = true; 
         System.out.println(target.getName() + " terkena stun");

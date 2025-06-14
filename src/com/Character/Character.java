@@ -1,7 +1,8 @@
 package com.Character;
+import com.GameUI.app;
+
 
 // import java.awt.List;
-// import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.List;
 import com.Item.Item;
@@ -21,6 +22,8 @@ public abstract class Character {
     private int level=1;
     private boolean stunStatus;
     private List<Item> inventory=new ArrayList<>();
+    private String isi;
+    
     
     //konstruktor
     public Character(String nama, int baseHealth, int baseAttack, int baseDefense){
@@ -40,6 +43,9 @@ public abstract class Character {
     public int getHealth(){
         return baseHealth+bonusHealth;
     }
+    public int getMaxHp(){
+        return maxHealth;
+    }
     public int getAttack(){
         return baseAttack+bonusAttack;
     }
@@ -55,9 +61,14 @@ public abstract class Character {
     public int getBonusAttack() {
         return bonusAttack;
     }
+    
     public List<Item> getInventory(){
         return inventory;
     }
+    public String getIsi(){
+        return isi;
+    }
+
     
     //setter
     
@@ -72,6 +83,9 @@ public abstract class Character {
     }
     public void setStunStatus(boolean value){
         this.stunStatus=value;
+    }
+    public void setName(String name){
+        this.nama=name;
     }
 
     //method
@@ -105,7 +119,7 @@ public abstract class Character {
         baseHealth=maxHealth;
         baseAttack+=(level*3);
         baseDefense+=(level*2);
-
+//        battleNotif.showMessageDialog(this,"kamu naik level");
         System.out.println("\n\b=====LEVEL UP=====");
         System.out.println(getName()+" Naik ke level "+level);
         System.out.println("HP meningkat jadi : "+maxHealth);
@@ -156,10 +170,12 @@ public abstract class Character {
     public void showInventory(){
         System.out.println("=====Inventory=====");
         if (inventory.isEmpty()) {
-            System.out.println("Inventory kamu kosong");
+            isi="Inventory kosong";
+            System.out.println(isi);
         }else{
             for(int i=0;i<inventory.size();i++){
-                System.out.println((i+1)+"."+inventory.get(i).getName());
+                isi=(i+1)+"."+inventory.get(i).getName()+"\n";
+                System.out.println(isi);
             }
         }
     }
@@ -174,4 +190,12 @@ public abstract class Character {
         System.out.println("Menggunakan " + item.getName());
     }
     public abstract String getRole();
+    public void takeExp(Monster target){
+        exp+=target.getExpDrop();
+            System.out.println(getName()+" Mendapatkan "+target.getExpDrop()+" exp");
+            while (exp>=maxExp) {
+                exp-=maxExp;
+                levelUp();
+            }
+    }
 }

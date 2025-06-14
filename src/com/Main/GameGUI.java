@@ -100,7 +100,7 @@ public class GameGUI extends JFrame {
 
     private void handleSkill() {
         if (player instanceof RoleWarrior warrior) {
-            warrior.rageSkill(turn);
+            warrior.rageSkill(turn,monster);
         } else if (player instanceof RolePiercer piercer) {
             piercer.poisonSkill(turn, monster);
         } else if (player instanceof RoleMage mage) {
@@ -152,7 +152,7 @@ public class GameGUI extends JFrame {
         if (player instanceof RolePiercer piercer) {
             piercer.poisonDamage(turn, monster);
         } else if (player instanceof RoleWarrior warrior) {
-            warrior.durasiSkill(turn);
+            warrior.durasiSkill(turn,monster);
         } else if (player instanceof RoleMage mage) {
             if (mage.getStunDuration() >= turn) {
                 mage.efekStun(turn, monster);

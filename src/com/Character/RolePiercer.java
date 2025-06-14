@@ -25,7 +25,10 @@ public class RolePiercer extends Character{
             System.out.println("\nMusuh sudah terkena racun");
         }else{
             System.out.println(target.getName()+" Terkena racun");
-            poisonDuration=turnSekarang+3+getLevel();
+            poisonDuration=turnSekarang+1+getLevel();
+            target.terSerang(poison);
+            System.out.println(target.getName()+" terkena "+poison+" damage dari keracunan");
+            target.setKeracunan(true);
         }    
     }
     public void poisonDamage(int turnSekarang,Monster target){
@@ -37,6 +40,7 @@ public class RolePiercer extends Character{
         } else {
             System.out.println("Durasi racun berakhir");
             poisonDuration = 0;
+            target.setKeracunan(false);
         }
     }
     @Override

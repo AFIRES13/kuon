@@ -1,6 +1,7 @@
 package com.Character;
 
 import com.Monsters.Monster;
+import com.GameUI.app;
 
 public class RoleWarrior extends Character {
     private String type;
@@ -10,6 +11,7 @@ public class RoleWarrior extends Character {
     private int rageDuration;
     private int energy=20;
     private int maxEnergy;
+    
 
 
 
@@ -31,6 +33,7 @@ public class RoleWarrior extends Character {
     public void setBonusStregth(int bonus){
         this.bonusStregth=bonus;
     }
+    
     @Override
     public void tampilkan() {
         System.out.println("\nClass : "+type);
@@ -38,7 +41,7 @@ public class RoleWarrior extends Character {
         System.out.println("Strength : " + getStrength() + " (Base: " + baseStrength + ", Bonus: " + bonusStregth + ", Rage: " + rageStrength + ")");
         System.out.println("Energy : "+energy+"/"+maxEnergy);
     }
-    public void rageSkill(int turnSekarang){
+    public void rageSkill(int turnSekarang,Monster target){
         if (rageDuration > 0) {
             System.out.println("Saat ini sedang dalam mode rage");
         } else if (energy < 20) {
@@ -49,14 +52,21 @@ public class RoleWarrior extends Character {
             System.out.println("Strength sekarang = "+getStrength());
             rageDuration = turnSekarang + 3;
             energy -= 20;
+            target.setRageStatus(true);;
+
         }
     }
-    public void durasiSkill(int turnSekarang){
+    public void durasiSkill(int turnSekarang,Monster target){
         if (rageDuration>0 && turnSekarang>=rageDuration) {
             System.out.println("Durasi rage telah selesai");
             rageStrength=0;
             rageDuration=0;
+            target.setRageStatus(false);
         }
+    }
+    public void resetRage(Monster target){
+        target.setRageStatus(false);
+        rageDuration=0;
     }
     @Override
     public void serang(Monster target) {

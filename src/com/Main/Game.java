@@ -112,7 +112,7 @@ public class Game {
                         break;
                     case "s":
                         if (player instanceof RoleWarrior) {
-                            ((RoleWarrior)player).rageSkill(turn);
+                            ((RoleWarrior)player).rageSkill(turn,monster);
                         }else if (player instanceof RolePiercer) {
                             ((RolePiercer)player).poisonSkill(turn, monster);
                         }else if (player instanceof RoleMage) {
@@ -138,7 +138,7 @@ public class Game {
                     //efek yg di hasilkan oleh skill
 
                     if (player instanceof RoleWarrior) {
-                        ((RoleWarrior)player).durasiSkill(turn);
+                        ((RoleWarrior)player).durasiSkill(turn,monster);
                     }else if (player instanceof RolePiercer) {
                         ((RolePiercer)player).poisonDamage(turn, monster);
                     }else if (player instanceof RoleMage) {
