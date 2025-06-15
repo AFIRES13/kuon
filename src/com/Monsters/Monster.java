@@ -83,7 +83,14 @@ public abstract class Monster {
             }
         }
     }
-
+    public String showStatus(){
+        return "Max hp = " + getMaxHp() +
+               "\nDefense = " + getDefense() +
+               "\nAttack = " + getAttack() +
+               "\n"
+               
+               ;
+    }
     public void tampilkan(){
         System.out.println("Nama : "+nama);
         System.out.println("HP : "+health);
