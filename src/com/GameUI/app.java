@@ -36,10 +36,12 @@ public class app extends javax.swing.JFrame {
     ImageIcon monsterAtt=null;
     ImageIcon playerEfek=null;
     ImageIcon playerHit=null;
+    ImageIcon monsterPoisoned=null;
     
     //gobllin assets
     ImageIcon goblinIddle=new ImageIcon(getClass().getResource("Goblin-IDLE.gif"));
     ImageIcon goblinAtt=new ImageIcon(getClass().getResource("Goblin-ATTACK.gif"));
+    ImageIcon goblinPoisoned=new ImageIcon(getClass().getResource("Goblin-RACUN.gif"));
     
     //piercer assets
     ImageIcon piercerIddle=new ImageIcon(getClass().getResource("Piercer-IDLE.gif"));
@@ -73,9 +75,13 @@ public class app extends javax.swing.JFrame {
         monster = new goblinKing();
         
     } else {
-        monster = new Goblin(wave); // atau jenis monster lain
+        monster = new Goblin(wave); 
         monsterIddle=goblinIddle;
         monsterAtt=goblinAtt;
+        if (monster.getKeracunan()) {
+            monsterIddle=goblinPoisoned;
+        }
+        monsterPoisoned=goblinPoisoned;
     }
 
     nameBoxEnemy.setText(monster.getName());
@@ -138,7 +144,7 @@ private void updateInventoryList() {
         for (Item item : player.getInventory()) {
             model.addElement(item.getName());
         }
-        inventory.setModel(model); // pastikan JList ini ada di GUI
+        inventory.setModel(model);
     }
 }
     
@@ -160,13 +166,14 @@ private void updateInventoryList() {
         battleNotif = new javax.swing.JOptionPane();
         inventoryButton = new javax.swing.JButton();
         turnPanel = new javax.swing.JTextPane();
-        inventory = new javax.swing.JList<>();
         useButton = new javax.swing.JButton();
         charArea1 = new javax.swing.JLabel();
         charArea = new javax.swing.JLabel();
         statBox = new javax.swing.JTextPane();
         statBoxMonster = new javax.swing.JTextPane();
         skillEfek = new javax.swing.JLabel();
+        inventoryScroll = new javax.swing.JScrollPane();
+        inventory = new javax.swing.JList<>();
         enemyStatus = new javax.swing.JTextArea();
         playerStatus = new javax.swing.JTextPane();
         monsterChar = new javax.swing.JLabel();
@@ -288,17 +295,6 @@ private void updateInventoryList() {
         });
         battlePanel.add(turnPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, 20, -1));
 
-        inventory.setBackground(new java.awt.Color(51, 51, 51));
-        inventory.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white));
-        inventory.setForeground(new java.awt.Color(255, 255, 255));
-        inventory.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        inventory.setToolTipText("");
-        battlePanel.add(inventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 570, 100, -1));
-
         useButton.setText("USE");
         useButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -338,7 +334,20 @@ private void updateInventoryList() {
         battlePanel.add(statBoxMonster, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 180, 190, 150));
 
         skillEfek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Mage-SPELL.gif"))); // NOI18N
-        battlePanel.add(skillEfek, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 140, -1, 340));
+        battlePanel.add(skillEfek, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 160, -1, 340));
+
+        inventory.setBackground(new java.awt.Color(51, 51, 51));
+        inventory.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white));
+        inventory.setForeground(new java.awt.Color(255, 255, 255));
+        inventory.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        inventory.setToolTipText("");
+        inventoryScroll.setViewportView(inventory);
+
+        battlePanel.add(inventoryScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 500, -1, -1));
 
         enemyStatus.setColumns(20);
         enemyStatus.setRows(5);
@@ -354,7 +363,7 @@ private void updateInventoryList() {
         battlePanel.add(enemyStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 180, -1, -1));
         battlePanel.add(playerStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 230, 40));
 
-        monsterChar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Goblin-IDLE.gif"))); // NOI18N
+        monsterChar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Goblin-RACUN.gif"))); // NOI18N
         monsterChar.setToolTipText("");
         battlePanel.add(monsterChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 330, 370));
 
@@ -542,7 +551,7 @@ private void updateInventoryList() {
                 if (wave==1) {
                     monsterIddle=goblinIddle;
                     monsterAtt=goblinAtt;
-                    
+                    monsterPoisoned=goblinPoisoned;
                 }
                 if (role.equals("Piercer")) {
                     spesialBar.setVisible(false);
@@ -561,9 +570,10 @@ private void updateInventoryList() {
                 statBoxMonster.setVisible(false);
                 statBox.setVisible(false);
                 playerChar.setIcon(playerIddle);
+                inventoryScroll.setVisible(false);
                 playerChar.setVisible(true);
                 monsterChar.setVisible(true);
-                monsterChar.setIcon(goblinIddle);
+                monsterChar.setIcon(monsterIddle);
                 int darah=player.getHealth();
                 battlePanel.setVisible(true);
                 exitButton.setVisible(true);
@@ -615,6 +625,14 @@ private void updateInventoryList() {
         }
     }
     
+    private void getPoisoned(){
+        if (monster.getKeracunan()) {
+            monsterIddle=monsterPoisoned;
+        }else{
+            
+        }
+    }
+    
     private void monsterCounterAttack() {
     // Efek spesial per role
     if (player instanceof RoleMage) {
@@ -636,7 +654,14 @@ private void updateInventoryList() {
         // Timer animasi balik ke idle
         Timer returnToIdle = new Timer(1000, new ActionListener() {
             public void actionPerformed(ActionEvent e2) {
-                monsterChar.setIcon(monsterIddle);
+//                monsterChar.setIcon(monsterIddle);
+                if (monster.getKeracunan()) {
+                    monsterChar.setIcon(monsterPoisoned);
+                    getPoisoned();
+                    monsterChar.setVisible(true);
+                }else{
+                    monsterChar.setIcon(monsterIddle);
+                }
                 playerChar.setIcon(playerIddle);
                 ((Timer) e2.getSource()).stop();
             }
@@ -647,8 +672,10 @@ private void updateInventoryList() {
         updateHpBar();
 
         if (monster.getKeracunan()) {
+            getPoisoned();
             enemyStatus.setText(monster.getName() + " terkena racun");
         } else {
+            
             enemyStatus.setText("");
         }
 
@@ -748,6 +775,7 @@ private void updateInventoryList() {
         inventory.setVisible(true);
         useButton.setVisible(true);
         inventoryButton.setVisible(false);
+        inventoryScroll.setVisible(true);
     }//GEN-LAST:event_inventoryButtonActionPerformed
 
     private void turnPanelAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_turnPanelAncestorAdded
@@ -771,8 +799,9 @@ private void updateInventoryList() {
         useButton.setVisible(false);
         inventory.setVisible(false);
         inventoryButton.setVisible(true);
-        spesialBar.setMaximum(player.getMaxMana());
-        spesialBar.setValue(player.getMana());
+        updateSBar();
+        updateHpBar();
+        inventoryScroll.setVisible(false);
         
         playerTurn = false;
         checkBattleStatus();
@@ -791,6 +820,7 @@ private void updateInventoryList() {
         useButton.setVisible(false);
         inventory.setVisible(false);
         inventoryButton.setVisible(true);
+        inventoryScroll.setVisible(false);
     }
     
     
@@ -877,6 +907,7 @@ private void updateInventoryList() {
     private javax.swing.JTextField inputNama;
     private javax.swing.JList<String> inventory;
     private javax.swing.JButton inventoryButton;
+    private javax.swing.JScrollPane inventoryScroll;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel latarUtama;
     private javax.swing.JLabel levelInd;
