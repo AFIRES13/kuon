@@ -55,6 +55,11 @@ public class app extends javax.swing.JFrame {
     ImageIcon mageSkill=new ImageIcon (getClass().getResource("Mage-SKILL.gif"));
     ImageIcon mageEfek=new ImageIcon (getClass().getResource("Mage-SPELL.gif"));
     ImageIcon mageHit=new ImageIcon (getClass().getResource("Mage-HIT.gif"));
+    //warrior assets
+    ImageIcon warriorIddle=new ImageIcon (getClass().getResource("Warrior-IDLE.gif"));
+    ImageIcon warriorAtt=new ImageIcon (getClass().getResource("Warrior-ATTACK.gif"));
+    ImageIcon warriorSkill=new ImageIcon (getClass().getResource("Warrior-SKILL.gif"));
+    ImageIcon warriorHit=new ImageIcon (getClass().getResource("Warrior-HIT.gif"));
     
     
     
@@ -107,7 +112,7 @@ public class app extends javax.swing.JFrame {
         updateHpBar();
         updateSBar();
         turnPanel.setText(Integer.toString(turn));
-        enemyStatus.setText("");
+        enemyStatus1.setText("");
         statBox.setText(player.showStatus());
         
         updateInventoryList();
@@ -174,8 +179,8 @@ private void updateInventoryList() {
         skillEfek = new javax.swing.JLabel();
         inventoryScroll = new javax.swing.JScrollPane();
         inventory = new javax.swing.JList<>();
-        enemyStatus = new javax.swing.JTextArea();
-        playerStatus = new javax.swing.JTextPane();
+        enemyStatus1 = new javax.swing.JLabel();
+        playerStatus1 = new javax.swing.JLabel();
         monsterChar = new javax.swing.JLabel();
         playerChar = new javax.swing.JLabel();
         battleMap = new javax.swing.JLabel();
@@ -349,26 +354,22 @@ private void updateInventoryList() {
 
         battlePanel.add(inventoryScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 500, -1, -1));
 
-        enemyStatus.setColumns(20);
-        enemyStatus.setRows(5);
-        enemyStatus.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                enemyStatusAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        battlePanel.add(enemyStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 180, -1, -1));
-        battlePanel.add(playerStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 230, 40));
+        enemyStatus1.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+        enemyStatus1.setForeground(new java.awt.Color(255, 255, 51));
+        enemyStatus1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        battlePanel.add(enemyStatus1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, 390, -1));
+
+        playerStatus1.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+        playerStatus1.setForeground(new java.awt.Color(255, 255, 51));
+        playerStatus1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        battlePanel.add(playerStatus1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 390, -1));
 
         monsterChar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Goblin-RACUN.gif"))); // NOI18N
         monsterChar.setToolTipText("");
         battlePanel.add(monsterChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 330, 370));
 
         playerChar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Mage-ATTACK.gif"))); // NOI18N
-        battlePanel.add(playerChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 670, -1));
+        battlePanel.add(playerChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 670, -1));
 
         battleMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/map.png"))); // NOI18N
         battlePanel.add(battleMap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -498,6 +499,13 @@ private void updateInventoryList() {
                 switch (playerRole) {
                     case "Warrior":
                         player=new RoleWarrior(inputNama.getText());
+                        playerIddle=warriorIddle;
+                        playerAtt=warriorAtt;
+                        spesialBar.setMaximum(player.getMaxEnergy());
+                        spesialBar.setValue(player.getEnergy());
+                        playerSkill=warriorSkill;
+                        //playerEfek=mageEfek;
+                        playerHit=warriorHit;
                         errorRole.setVisible(false);
 
                         break;
@@ -644,7 +652,7 @@ private void updateInventoryList() {
     }
 
     if (monster.getStunStatus()) {
-        enemyStatus.setText(monster.getName() + " terkena stun!");
+        enemyStatus1.setText(monster.getName() + " terkena stun!");
         playerChar.setIcon(playerIddle);
     } else {
         monsterChar.setIcon(monsterAtt);
@@ -673,13 +681,13 @@ private void updateInventoryList() {
 
         if (monster.getKeracunan()) {
             getPoisoned();
-            enemyStatus.setText(monster.getName() + " terkena racun");
+            enemyStatus1.setText(monster.getName() + " terkena racun");
         } else {
             
-            enemyStatus.setText("");
+            enemyStatus1.setText("");
         }
 
-        playerStatus.setText(monster.getRageStatus() ? "sedang mode rage" : "");
+        playerStatus1.setText(monster.getRageStatus() ? "sedang mode rage" : "");
     }
 
     turn++;
@@ -782,10 +790,6 @@ private void updateInventoryList() {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_turnPanelAncestorAdded
-
-    private void enemyStatusAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_enemyStatusAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_enemyStatusAncestorAdded
 
     private void useButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useButtonActionPerformed
         // TODO add your handling code here:
@@ -899,7 +903,7 @@ private void updateInventoryList() {
     private javax.swing.JPanel battlePanel;
     private javax.swing.JLabel charArea;
     private javax.swing.JLabel charArea1;
-    private javax.swing.JTextArea enemyStatus;
+    private javax.swing.JLabel enemyStatus1;
     private javax.swing.JTextPane errorRole;
     private javax.swing.JButton exitButton;
     private javax.swing.JProgressBar hpBar1;
@@ -918,7 +922,7 @@ private void updateInventoryList() {
     private javax.swing.JLabel nameBoxEnemy;
     private javax.swing.JButton playButton;
     private javax.swing.JLabel playerChar;
-    private javax.swing.JTextPane playerStatus;
+    private javax.swing.JLabel playerStatus1;
     private javax.swing.JButton quitButton;
     private javax.swing.JLabel roleArea;
     private javax.swing.JComboBox<String> roleBox;
