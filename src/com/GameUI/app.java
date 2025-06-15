@@ -40,6 +40,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon monsterStuned=null;
     ImageIcon monsterHit=null;
     ImageIcon monsterAttPoisoned=null;
+    ImageIcon monsterStunedHit=null;
     
     
     
@@ -51,6 +52,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon goblinStuned=new ImageIcon(getClass().getResource("Goblin-STUN.png"));
     ImageIcon goblinHit=new ImageIcon(getClass().getResource("Goblin-HIT.gif"));
     ImageIcon goblinAttPoisoned=new ImageIcon(getClass().getResource("Goblin-RACUN-ATT.gif"));
+    ImageIcon goblinStunedHit=new ImageIcon(getClass().getResource("Goblin-STUN-GETER.gif"));
     
     //piercer assets
     ImageIcon piercerIddle=new ImageIcon(getClass().getResource("Piercer-IDLE.gif"));
@@ -97,6 +99,7 @@ public class app extends javax.swing.JFrame {
         monsterHit=goblinHit;
         monsterPoisoned=goblinPoisoned;
         monsterAttPoisoned=goblinAttPoisoned;
+        monsterStunedHit=goblinStunedHit;
     }
 
     nameBoxEnemy.setText(monster.getName());
@@ -574,6 +577,7 @@ private void updateInventoryList() {
                     monsterStuned=goblinStuned;
                     monsterHit=goblinHit;
                     monsterAttPoisoned=goblinAttPoisoned;
+                    monsterStunedHit=goblinStunedHit;
                 }
                 if (role.equals("Piercer")) {
                     spesialBar.setVisible(false);
@@ -784,7 +788,11 @@ private void updateInventoryList() {
         hpBarEnemy.setMaximum(monster.getMaxHp());
         hpBarEnemy.setValue(monster.getHealth());
         playerChar.setIcon(playerAtt);
-        monsterChar.setIcon(monsterHit);
+            if (monster.getStunStatus()) {
+                monsterChar.setIcon(monsterStunedHit);
+            }else{
+                monsterChar.setIcon(monsterHit);
+            }
         int level=player.getLevel();
         levelInd.setText(Integer.toString(level));
         playerTurn = false;
