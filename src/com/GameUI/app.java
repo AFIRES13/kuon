@@ -37,11 +37,13 @@ public class app extends javax.swing.JFrame {
     ImageIcon playerEfek=null;
     ImageIcon playerHit=null;
     ImageIcon monsterPoisoned=null;
+    ImageIcon monsterStuned=null;
     
     //gobllin assets
     ImageIcon goblinIddle=new ImageIcon(getClass().getResource("Goblin-IDLE.gif"));
     ImageIcon goblinAtt=new ImageIcon(getClass().getResource("Goblin-ATTACK.gif"));
     ImageIcon goblinPoisoned=new ImageIcon(getClass().getResource("Goblin-RACUN.gif"));
+    ImageIcon goblinStuned=new ImageIcon(getClass().getResource("Goblin-STUN.png"));
     
     //piercer assets
     ImageIcon piercerIddle=new ImageIcon(getClass().getResource("Piercer-IDLE.gif"));
@@ -83,6 +85,8 @@ public class app extends javax.swing.JFrame {
         monster = new Goblin(wave); 
         monsterIddle=goblinIddle;
         monsterAtt=goblinAtt;
+        monsterPoisoned=goblinPoisoned;
+        monsterStuned=goblinStuned;
         if (monster.getKeracunan()) {
             monsterIddle=goblinPoisoned;
         }
@@ -108,7 +112,7 @@ public class app extends javax.swing.JFrame {
         int level=player.getLevel();
         
         levelInd.setText(Integer.toString(level));
-        int darah = player.getHealth();
+        
         updateHpBar();
         updateSBar();
         turnPanel.setText(Integer.toString(turn));
@@ -560,6 +564,7 @@ private void updateInventoryList() {
                     monsterIddle=goblinIddle;
                     monsterAtt=goblinAtt;
                     monsterPoisoned=goblinPoisoned;
+                    monsterStuned=goblinStuned;
                 }
                 if (role.equals("Piercer")) {
                     spesialBar.setVisible(false);
@@ -656,6 +661,7 @@ private void updateInventoryList() {
 
     if (monster.getStunStatus()) {
         enemyStatus1.setText(monster.getName() + " terkena stun!");
+        monsterChar.setIcon(monsterStuned);
         playerChar.setIcon(playerIddle);
     } else {
         monsterChar.setIcon(monsterAtt);
@@ -796,6 +802,7 @@ private void updateInventoryList() {
         skillEfek.setVisible(true);
     } else if(player instanceof RoleMage){
         skillEfek.setVisible(true);
+        monsterChar.setIcon(monsterStuned);
         ((RoleMage)player).stunSkill(turn, monster);
     }
     playerChar.setIcon(playerSkill);
