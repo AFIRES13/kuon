@@ -66,7 +66,7 @@ public void efekStun(int turnSekarang,Monster target){
     }
     
     public String showStatus(){
-        return "Max hp = " + getMaxHp() +
+        return "Max hp / hp = " + getMaxHp()+"/"+this.getHealth() +
                "\nDefense = " + getDefense() +
                "\nAttack = " + getAttack() +
                "\nMax mana = " + getMaxMana() +

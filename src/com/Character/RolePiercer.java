@@ -78,7 +78,7 @@ public class RolePiercer extends Character{
         return this.type;
     }
     public String showStatus(){
-        return "Max hp = " + getMaxHp() +
+        return "Max hp / hp = " + getMaxHp()+"/"+this.getHealth() +
                "\nDefense = " + getDefense() +
                "\nAttack = " + getAttack() +
                "\nPenetration " + penetration +

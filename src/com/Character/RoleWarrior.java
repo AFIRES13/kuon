@@ -45,7 +45,7 @@ public class RoleWarrior extends Character {
     
     
     public String showStatus(){
-        return "Max hp = " + getMaxHp() +
+        return "Max hp / hp = " + getMaxHp()+"/"+this.getHealth() +
                "\nDefense = " + getDefense() +
                "\nAttack = " + getAttack() +
                "\nStrength " + getStrength() +

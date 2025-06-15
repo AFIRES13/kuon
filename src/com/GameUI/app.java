@@ -229,7 +229,7 @@ private void updateInventoryList() {
                 hpBar1StateChanged(evt);
             }
         });
-        battlePanel.add(hpBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 570, 180, 20));
+        battlePanel.add(hpBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 570, 180, 30));
 
         hpBarEnemy.setForeground(new java.awt.Color(244, 9, 9));
         hpBarEnemy.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -237,10 +237,10 @@ private void updateInventoryList() {
                 hpBarEnemyStateChanged(evt);
             }
         });
-        battlePanel.add(hpBarEnemy, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 580, 210, 20));
+        battlePanel.add(hpBarEnemy, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 580, 210, 30));
 
         spesialBar.setForeground(new java.awt.Color(255, 255, 51));
-        battlePanel.add(spesialBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 600, 120, 10));
+        battlePanel.add(spesialBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 610, 120, 20));
 
         levelInd.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         levelInd.setForeground(new java.awt.Color(255, 255, 255));
@@ -251,7 +251,7 @@ private void updateInventoryList() {
         roleArea.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         roleArea.setForeground(new java.awt.Color(0, 0, 0));
         roleArea.setText("jLabel2");
-        battlePanel.add(roleArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 610, -1, 20));
+        battlePanel.add(roleArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 610, -1, 20));
 
         attackButton.setText("ATTACK");
         attackButton.addActionListener(new java.awt.event.ActionListener() {
@@ -599,6 +599,7 @@ private void updateInventoryList() {
                 playButton.setVisible(false);
                 quitButton.setVisible(false);
                 battleNotif.setVisible(false);
+                updateHpBar();
                 turnPanel.setText(Integer.toString(turn));
                 for (int i=0; i<5; i++) {
                     player.addItem(new HealingPotion());
@@ -610,10 +611,12 @@ private void updateInventoryList() {
     }//GEN-LAST:event_startButtonActionPerformed
     
     private void updateHpBar(){
+        
         hpBar1.setBackground(Color.gray);
         hpBar1.setForeground(Color.red);
         hpBar1.setMaximum(player.getMaxHp());
         hpBar1.setValue(player.getHealth());
+        
         
     }
     
@@ -657,6 +660,7 @@ private void updateInventoryList() {
     } else {
         monsterChar.setIcon(monsterAtt);
         monster.serang(player);
+        
         playerChar.setIcon(playerHit);
 
         // Timer animasi balik ke idle
@@ -670,14 +674,17 @@ private void updateInventoryList() {
                 }else{
                     monsterChar.setIcon(monsterIddle);
                 }
+                updateHpBar();
                 playerChar.setIcon(playerIddle);
                 ((Timer) e2.getSource()).stop();
             }
         });
+        statBox.setText(player.showStatus());
+
         returnToIdle.setRepeats(false);
         returnToIdle.start();
 
-        updateHpBar();
+        
 
         if (monster.getKeracunan()) {
             getPoisoned();
@@ -702,20 +709,59 @@ private void updateInventoryList() {
     playerTurn = true;
 }
     
+    private void resetGame() {
+    // Reset variabel game
+    wave = 1;
+    turn = 1;
+    playerTurn = true;
+    player = null;
+    monster = new Goblin(turn);
+
+    // Reset icon
+    playerIddle = null;
+    playerAtt = null;
+    playerSkill = null;
+    playerEfek = null;
+    playerHit = null;
+    monsterIddle = goblinIddle;
+    monsterAtt = goblinAtt;
+
+    // Reset tampilan GUI
+    latarUtama.setVisible(true);
+    mainMenu.setVisible(true);
+    playButton.setVisible(true);
+    quitButton.setVisible(true);
+    roleSelect.setVisible(false);
+    battlePanel.setVisible(false);
+    battleNotif.setVisible(false);
+    statBox.setText("");
+    statBoxMonster.setText("");
+    inventory.setVisible(false);
+    inventoryScroll.setVisible(false);
+    turnPanel.setText("1");
+    levelInd.setText("1");
+    spesialBar.setValue(0);
+    nameBox.setText("");
+    nameBoxEnemy.setText("");
+    playerChar.setIcon(null);
+    monsterChar.setIcon(null);
+
+    // Reset input
+    inputNama.setText("Masukan Nama");
+    roleBox.setSelectedIndex(0);
+}
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         // TODO add your handling code here:
-        mainMenu.setVisible(true);
-        battlePanel.setVisible(false);
-        quitButton.setVisible(true);
-        playButton.setVisible(true);
-        latarUtama.setVisible(true);
+        resetGame();
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void attackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackButtonActionPerformed
         updateSBar();
+      
         monsterChar.setVisible(true);
         if (playerTurn) {
         player.serang(monster);
+        
         hpBarEnemy.setMaximum(monster.getMaxHp());
         hpBarEnemy.setValue(monster.getHealth());
         playerChar.setIcon(playerAtt);
