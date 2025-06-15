@@ -118,6 +118,7 @@ public class app extends javax.swing.JFrame {
         turnPanel.setText(Integer.toString(turn));
         enemyStatus1.setText("");
         statBox.setText(player.showStatus());
+        statBoxMonster.setText(monster.showStatus());
         
         updateInventoryList();
     }
@@ -686,7 +687,7 @@ private void updateInventoryList() {
             }
         });
         statBox.setText(player.showStatus());
-
+        statBoxMonster.setText(monster.showStatus());
         returnToIdle.setRepeats(false);
         returnToIdle.start();
 
@@ -784,7 +785,7 @@ private void updateInventoryList() {
         ((Timer) e.getSource()).stop();
     }
 });
-        
+        statBoxMonster.setText(monster.showStatus());
         timer.setRepeats(false);
         timer.start();
         }
@@ -818,6 +819,7 @@ private void updateInventoryList() {
                ((Timer) e.getSource()).stop();
     }
 });
+    statBoxMonster.setText(monster.showStatus());
     updateSBar();
     timer.setRepeats(false);
     timer.start();
