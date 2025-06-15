@@ -23,7 +23,10 @@ public abstract class Character {
     private boolean stunStatus;
     private List<Item> inventory=new ArrayList<>();
     private String isi;
-    
+    private int mana;
+    private int maxMana;
+    private int energy;
+    private int maxEnergy;
     
     //konstruktor
     public Character(String nama, int baseHealth, int baseAttack, int baseDefense){
@@ -68,7 +71,20 @@ public abstract class Character {
     public String getIsi(){
         return isi;
     }
-
+    public int getMana(){
+        return mana;
+    }
+    public int getMaxMana(){
+        return maxMana;
+    }
+    public int getEnergy() {
+        return energy;
+    }
+    
+    public int getMaxEnergy() {
+        return maxEnergy;
+    }
+    
     
     //setter
     
@@ -126,6 +142,11 @@ public abstract class Character {
         System.out.println("ATT naik menjadi : "+baseAttack);
         System.out.println("DEF naik menjadi : "+baseDefense);
 
+    }
+    private String stat="Max hp = "+this.getMaxHp()+"\nDefense = "+this.getDefense()+"\nAttack = "+this.getAttack()+"\nl";
+    
+    public String showStatus(){
+        return stat;
     }
 
     public void claimExp(Monster target){

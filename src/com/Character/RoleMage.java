@@ -21,6 +21,9 @@ public int getStunDuration(){
 public int getMana(){
     return mana;
 }
+public int getMaxMana(){
+    return maxMana;
+}
 public void setMana(int mana){
     this.mana=mana;
 }
@@ -41,7 +44,7 @@ System.out.println("Damage yang dihasilkan sebesar " + (damage));
 public void stunSkill(int turnSekarang, Monster target){
     if (this.mana >= 20) {
         this.mana -= 20;
-        this.stunDuration = turnSekarang + 2; 
+        this.stunDuration = turnSekarang + 2+getLevel(); 
         target.setStunStatus(true);
         this.isStunning = true; 
         System.out.println(target.getName() + " terkena stun");
@@ -61,7 +64,14 @@ public void efekStun(int turnSekarang,Monster target){
         }
     }
     }
-
+    
+    public String showStatus(){
+        return "Max hp = " + getMaxHp() +
+               "\nDefense = " + getDefense() +
+               "\nAttack = " + getAttack() +
+               "\nMax mana = " + getMaxMana() +
+               "\nDurasi stun musuh = " + (2 + getLevel()) + " turn";
+    }
 public void regenMana(int amount){
     mana+=amount;
     if (mana>maxMana) {

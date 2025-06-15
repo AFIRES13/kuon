@@ -28,6 +28,34 @@ public class app extends javax.swing.JFrame {
     boolean playerTurn = true;
     Character player=null;
     Monster monster=new Goblin(turn);
+    ImageIcon playerIddle=null;
+    ImageIcon playerAtt=null;
+    ImageIcon playerSkill=null;
+    ImageIcon monsterIddle=null;
+    ImageIcon monsterAtt=null;
+    ImageIcon playerEfek=null;
+    ImageIcon playerHit=null;
+    
+    //gobllin assets
+    ImageIcon goblinIddle=new ImageIcon(getClass().getResource("Goblin-IDLE.gif"));
+    ImageIcon goblinAtt=new ImageIcon(getClass().getResource("Goblin-ATTACK.gif"));
+    
+    //piercer assets
+    ImageIcon piercerIddle=new ImageIcon(getClass().getResource("Piercer-IDLE.gif"));
+    ImageIcon piercerAtt=new ImageIcon(getClass().getResource("Piercer-ATTACK.gif"));
+    ImageIcon piercerSkill=new ImageIcon(getClass().getResource("Piercer-CAST.gif"));
+    ImageIcon piercerEfek=new ImageIcon(getClass().getResource("Piercer-SPELL.gif"));
+    ImageIcon piercerHit=new ImageIcon(getClass().getResource("Piercer-HIT.gif"));
+    //mage assets
+    ImageIcon mageIddle=new ImageIcon (getClass().getResource("Mage-IDLE.gif"));
+    ImageIcon mageAtt=new ImageIcon (getClass().getResource("Mage-ATTACK.gif"));
+    ImageIcon mageSkill=new ImageIcon (getClass().getResource("Mage-SKILL.gif"));
+    ImageIcon mageEfek=new ImageIcon (getClass().getResource("Mage-SPELL.gif"));
+    ImageIcon mageHit=new ImageIcon (getClass().getResource("Mage-HIT.gif"));
+    
+    
+    
+    
     
     public app() {
         initComponents();
@@ -42,8 +70,11 @@ public class app extends javax.swing.JFrame {
     private void generateMonster(int wave) {
     if (wave ==5) {
         monster = new goblinKing();
+        
     } else {
         monster = new Goblin(wave); // atau jenis monster lain
+        monsterIddle=goblinIddle;
+        monsterAtt=goblinAtt;
     }
 
     nameBoxEnemy.setText(monster.getName());
@@ -70,6 +101,9 @@ public class app extends javax.swing.JFrame {
         hpBar1.setValue(player.getHealth());
         turnPanel.setText(Integer.toString(turn));
         enemyStatus.setText("");
+        statBox1.setText(player.showStatus());
+        spesialBar.setMaximum(player.getMaxMana());
+                        spesialBar.setValue(player.getMana());
         updateInventoryList();
     }
 
@@ -78,6 +112,7 @@ private void checkBattleStatus() {
         monsterMati();
         turn=1;
         turnPanel.setText(Integer.toString(turn));
+        playerChar.setIcon(playerIddle);
         
         generateMonster(wave);
         if (player instanceof RoleMage) {
@@ -117,6 +152,7 @@ private void updateInventoryList() {
         nameBoxEnemy = new javax.swing.JLabel();
         hpBar1 = new javax.swing.JProgressBar();
         hpBarEnemy = new javax.swing.JProgressBar();
+        spesialBar = new javax.swing.JProgressBar();
         levelInd = new javax.swing.JLabel();
         roleArea = new javax.swing.JLabel();
         attackButton = new javax.swing.JButton();
@@ -129,7 +165,11 @@ private void updateInventoryList() {
         playerStatus = new javax.swing.JTextPane();
         inventory = new javax.swing.JList<>();
         useButton = new javax.swing.JButton();
-        piercerIddle = new javax.swing.JLabel();
+        charArea = new javax.swing.JLabel();
+        statBox1 = new javax.swing.JTextPane();
+        skillEfek = new javax.swing.JLabel();
+        monsterChar = new javax.swing.JLabel();
+        playerChar = new javax.swing.JLabel();
         battleMap = new javax.swing.JLabel();
         roleSelect = new javax.swing.JPanel();
         inputNama = new javax.swing.JTextField();
@@ -170,7 +210,7 @@ private void updateInventoryList() {
         nameBoxEnemy.setText("jLabel2");
         battlePanel.add(nameBoxEnemy, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 170, 40));
 
-        hpBar1.setForeground(new java.awt.Color(244, 9, 9));
+        hpBar1.setForeground(new java.awt.Color(237, 0, 0));
         hpBar1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 hpBar1StateChanged(evt);
@@ -186,6 +226,9 @@ private void updateInventoryList() {
         });
         battlePanel.add(hpBarEnemy, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 140, 210, 20));
 
+        spesialBar.setForeground(new java.awt.Color(255, 255, 51));
+        battlePanel.add(spesialBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, -1, 10));
+
         levelInd.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         levelInd.setForeground(new java.awt.Color(255, 255, 255));
         levelInd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -195,7 +238,7 @@ private void updateInventoryList() {
         roleArea.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         roleArea.setForeground(new java.awt.Color(0, 0, 0));
         roleArea.setText("jLabel2");
-        battlePanel.add(roleArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, -1, -1));
+        battlePanel.add(roleArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, -1, -1));
 
         attackButton.setText("ATTACK");
         attackButton.addActionListener(new java.awt.event.ActionListener() {
@@ -223,7 +266,7 @@ private void updateInventoryList() {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        battlePanel.add(battleNotif, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, -1, -1));
+        battlePanel.add(battleNotif, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 170, -1, -1));
 
         inventoryButton.setText("INVENTORY");
         inventoryButton.addActionListener(new java.awt.event.ActionListener() {
@@ -288,8 +331,30 @@ private void updateInventoryList() {
         });
         battlePanel.add(useButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 510, 60, 30));
 
-        piercerIddle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Piercer-IDLE.gif"))); // NOI18N
-        battlePanel.add(piercerIddle, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, -1, -1));
+        charArea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                charAreaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                charAreaMouseExited(evt);
+            }
+        });
+        battlePanel.add(charArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 140, 160));
+
+        statBox1.setBackground(new java.awt.Color(30, 30, 30));
+        statBox1.setForeground(new java.awt.Color(255, 255, 255));
+        statBox1.setText("qsdw");
+        battlePanel.add(statBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 240, 150));
+
+        skillEfek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Piercer-SPELL.gif"))); // NOI18N
+        battlePanel.add(skillEfek, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, -1, 270));
+
+        monsterChar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Goblin-IDLE.gif"))); // NOI18N
+        monsterChar.setToolTipText("");
+        battlePanel.add(monsterChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 250, 330, 370));
+
+        playerChar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Piercer-IDLE.gif"))); // NOI18N
+        battlePanel.add(playerChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 670, -1));
 
         battleMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/mapnya di rename goblok.png"))); // NOI18N
         battlePanel.add(battleMap, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -429,11 +494,24 @@ private void updateInventoryList() {
                         break;
                     case "Piercer":
                         player= new RolePiercer(inputNama.getText());
+                        playerIddle=piercerIddle;
+                        playerAtt=piercerAtt;
+                        playerSkill=piercerSkill;
+                        playerEfek=piercerEfek;
+                        playerHit=piercerHit;
                         errorRole.setVisible(false);
+                        
 
                         break;
                     case "Mage":
                         player=new RoleMage(inputNama.getText());
+                        playerIddle=mageIddle;
+                        playerAtt=mageAtt;
+                        spesialBar.setMaximum(player.getMaxMana());
+                        spesialBar.setValue(player.getMana());
+                        playerSkill=mageSkill;
+                        playerEfek=mageEfek;
+                        playerHit=mageHit;
                         errorRole.setVisible(false);
 
                         break;
@@ -460,7 +538,30 @@ private void updateInventoryList() {
                 errorRole.setVisible(true);
                 errorRole.setText("Silahkan Pilih Role");
             }else{
-                piercerIddle.setVisible(true);
+                
+                if (wave==1) {
+                    monsterIddle=goblinIddle;
+                    monsterAtt=goblinAtt;
+                    
+                }
+                if (role.equals("Piercer")) {
+                    spesialBar.setVisible(false);
+                }else if (role.equals("Pilih Role")) {
+                    spesialBar.setVisible(false);
+                }else{
+                    spesialBar.setVisible(true);
+                    spesialBar.setMaximum(player.getMaxMana());
+                        spesialBar.setValue(player.getMana());
+                }
+                
+                skillEfek.setVisible(false);
+                skillEfek.setIcon(playerEfek);
+                statBox1.setText(player.showStatus());
+                statBox1.setVisible(false);
+                playerChar.setIcon(playerIddle);
+                playerChar.setVisible(true);
+                monsterChar.setVisible(true);
+                monsterChar.setIcon(goblinIddle);
                 int darah=player.getHealth();
                 battlePanel.setVisible(true);
                 exitButton.setVisible(true);
@@ -507,13 +608,16 @@ private void updateInventoryList() {
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void attackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackButtonActionPerformed
-
-        
+        if (player instanceof RoleMage) {
+            spesialBar.setMaximum(player.getMaxMana());
+                        spesialBar.setValue(player.getMana());
+        }
+        monsterChar.setVisible(true);
         if (playerTurn) {
         player.serang(monster);
         hpBarEnemy.setMaximum(monster.getMaxHp());
         hpBarEnemy.setValue(monster.getHealth());
-        piercerIddle.setIcon(new ImageIcon(getClass().getResource("Piercer-ATTACK.gif")));
+        playerChar.setIcon(playerAtt);
         
         int level=player.getLevel();
         levelPane.setText(Integer.toString(level));
@@ -523,68 +627,107 @@ private void updateInventoryList() {
         
         // Delay sedikit agar UI tidak membeku (opsional, bisa pakai Swing Timer)
         Timer timer = new Timer(1000, new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-        // Panggil efek stun di sini
-        piercerIddle.setIcon(new ImageIcon(getClass().getResource("Piercer-IDLE.gif")));
+    public void actionPerformed(ActionEvent e) {
+        
+
+        // Efek spesial per role
         if (player instanceof RoleMage) {
             ((RoleMage) player).efekStun(turn, monster);
-        }else if (player instanceof RolePiercer) {
-            ((RolePiercer)player).poisonDamage(turn, monster);
-        }else if (player instanceof RoleWarrior) {
-            ((RoleWarrior)player).durasiSkill(turn,monster);
+        } else if (player instanceof RolePiercer) {
+            ((RolePiercer) player).poisonDamage(turn, monster);
+        } else if (player instanceof RoleWarrior) {
+            ((RoleWarrior) player).durasiSkill(turn, monster);
         }
 
+        // Status efek musuh
         if (monster.getStunStatus()) {
-            enemyStatus.setText(monster.getName()+" terkena stun!");
-        }else if (monster.getKeracunan()) {
-            enemyStatus.setText(monster.getName()+" terkena Racun!");
-        }else if (monster.getRageStatus()) {
-            playerStatus.setText("sedang mode rage");
+            enemyStatus.setText(monster.getName() + " terkena stun!");
+            playerChar.setIcon(playerIddle);
+        } else if (monster.getKeracunan()) {
+            enemyStatus.setText(monster.getName() + " terkena Racun!");
+            monster.serang(player);
+            monsterChar.setIcon(monsterAtt);
+            playerChar.setIcon(playerHit);
+
+            // Timer untuk mengembalikan ke idle setelah 800 ms
+            Timer returnToIdle = new Timer(800, new ActionListener() {
+                public void actionPerformed(ActionEvent e2) {
+                    monsterChar.setIcon(monsterIddle);
+                    playerChar.setIcon(playerIddle);
+                    ((Timer) e2.getSource()).stop();
+                }
+            });
+            returnToIdle.setRepeats(false);
+            returnToIdle.start();
+
+            hpBar1.setMaximum(player.getMaxHp());
+            hpBar1.setValue(player.getHealth());
+        } else {
+            // Hanya serang jika tidak kena stun
             
-        }else if (!monster.getRageStatus()) {
+            monsterChar.setIcon(monsterAtt);
             monster.serang(player);
+            playerChar.setIcon(playerHit);
+            enemyStatus.setText("");
+            // Timer untuk mengembalikan ke idle setelah 800 ms
+            Timer returnToIdle = new Timer(800, new ActionListener() {
+                public void actionPerformed(ActionEvent e2) {
+                    monsterChar.setIcon(monsterIddle);
+                    playerChar.setIcon(playerIddle);
+                    ((Timer) e2.getSource()).stop();
+                }
+            });
+            returnToIdle.setRepeats(false);
+            returnToIdle.start();
+
             hpBar1.setMaximum(player.getMaxHp());
             hpBar1.setValue(player.getHealth());
-            playerStatus.setText("");
-        }  else {
-            monster.serang(player);
-            hpBar1.setMaximum(player.getMaxHp());
-            System.out.println(player.getMaxHp() +"/"+ player.getHealth());
-            hpBar1.setValue(player.getHealth());
-            enemyStatus.setText(""); // Clear jika tidak kena stun
+            playerStatus.setText(monster.getRageStatus() ? "sedang mode rage" : "");
         }
-        
+
+        // Update UI
         hpBar1.setMaximum(player.getMaxHp());
         hpBar1.setValue(player.getHealth());
+        spesialBar.setMaximum(player.getMaxMana());
+        spesialBar.setValue(player.getMana());
         turn++;
+
+        // Regenerasi
         if (player instanceof RoleMage) {
-            ((RoleMage)player).regenMana(5);
-        }else if (player instanceof RoleWarrior) {
-            ((RoleWarrior)player).regenEnergy(5);
-                }
+            ((RoleMage) player).regenMana(5);
+        } else if (player instanceof RoleWarrior) {
+            ((RoleWarrior) player).regenEnergy(5);
+        }
+
         turnPanel.setText(String.valueOf(turn));
         checkBattleStatus();
         playerTurn = true;
         ((Timer) e.getSource()).stop();
     }
 });
+        
         timer.setRepeats(false);
         timer.start();
-    }
+        }
     }//GEN-LAST:event_attackButtonActionPerformed
 
     private void skillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skillButtonActionPerformed
         // TODO add your handling code here:
+        monsterChar.setVisible(true);
         if (playerTurn) {
     if (player instanceof RoleWarrior){
         ((RoleWarrior)player).rageSkill(turn,monster);
         
     } else if(player instanceof RolePiercer){
         ((RolePiercer)player).poisonSkill(turn, monster);
+        skillEfek.setVisible(true);
     } else if(player instanceof RoleMage){
+        skillEfek.setVisible(true);
+        spesialBar.setMaximum(player.getMaxMana());
+        spesialBar.setValue(player.getMana());
         ((RoleMage)player).stunSkill(turn, monster);
     }
-
+    playerChar.setIcon(playerSkill);
     hpBarEnemy.setMaximum(monster.getMaxHp());
     hpBarEnemy.setValue(monster.getHealth());
     playerTurn = false;
@@ -592,37 +735,59 @@ private void updateInventoryList() {
 
     Timer timer = new Timer(1000, new ActionListener() {
     public void actionPerformed(ActionEvent e) {
+        playerChar.setIcon(playerIddle);
+        skillEfek.setVisible(false);
+
+        // Efek status pada musuh
         if (monster.getStunStatus()) {
-            enemyStatus.setText(monster.getName()+" terkena stun!");
-            monster.setStunStatus(false); // stun hanya berlaku 1 giliran
-        }else if (monster.getKeracunan()) {
-            enemyStatus.setText(monster.getName()+" terkena racun");
+            enemyStatus.setText(monster.getName() + " terkena stun!");
+            // Optional: jika stun hanya 1 giliran
+            monster.setStunStatus(false);
+        } else {
+            // Monster menyerang (baik normal, rage, racun)
+            monsterChar.setIcon(monsterAtt);
             monster.serang(player);
-        }else if (monster.getRageStatus()) {
-            playerStatus.setText("sedang mode rage");
-            monster.serang(player);
-            hpBar1.setMaximum(player.getMaxHp());
-            hpBar1.setValue(player.getHealth());
-        }else {
-            monster.serang(player);
-            hpBar1.setMaximum(player.getMaxHp());
-            hpBar1.setValue(player.getHealth());
-        }
-        turn++;
-        
-        
-        
-        if (player instanceof RoleMage) {
-                        ((RoleMage)player).regenMana(5);
-                    }else if (player instanceof RoleWarrior) {
-                    ((RoleWarrior)player).regenEnergy(5);
+            // Timer untuk kembali ke idle setelah animasi
+            Timer returnToIdle = new Timer(800, new ActionListener() {
+                public void actionPerformed(ActionEvent e2) {
+                    monsterChar.setIcon(monsterIddle);
+                    ((Timer) e2.getSource()).stop();
                 }
+            });
+            returnToIdle.setRepeats(false);
+            returnToIdle.start();
+
+            // Update HP bar player
+            hpBar1.setMaximum(player.getMaxHp());
+            hpBar1.setValue(player.getHealth());
+
+            // Status tambahan
+            if (monster.getKeracunan()) {
+                enemyStatus.setText(monster.getName() + " terkena racun");
+            }
+            if (monster.getRageStatus()) {
+                playerStatus.setText("sedang mode rage");
+            } else {
+                playerStatus.setText("");
+            }
+        }
+
+        // Update turn dan regenerasi
+        turn++;
+        if (player instanceof RoleMage) {
+            ((RoleMage) player).regenMana(5);
+        } else if (player instanceof RoleWarrior) {
+            ((RoleWarrior) player).regenEnergy(5);
+        }
+
         turnPanel.setText(Integer.toString(turn));
         checkBattleStatus();
         playerTurn = true;
-        ((Timer)e.getSource()).stop(); // hanya sekali
+        ((Timer) e.getSource()).stop();
     }
 });
+    spesialBar.setMaximum(player.getMaxMana());
+    spesialBar.setValue(player.getMana());
 
     timer.setRepeats(false);
     timer.start();
@@ -663,6 +828,7 @@ private void updateInventoryList() {
     private void useButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useButtonActionPerformed
         // TODO add your handling code here:
           int selectedIndex = inventory.getSelectedIndex();
+          monsterChar.setVisible(true);
     if (selectedIndex != -1 && player != null) {
         Item selectedItem = player.getInventory().get(selectedIndex);
         player.use(selectedItem); // pakai item
@@ -671,43 +837,63 @@ private void updateInventoryList() {
         useButton.setVisible(false);
         inventory.setVisible(false);
         inventoryButton.setVisible(true);
+        spesialBar.setMaximum(player.getMaxMana());
+        spesialBar.setValue(player.getMana());
         
         playerTurn = false;
         checkBattleStatus();
         
         Timer timer = new Timer(1000, new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
         if (monster.getStunStatus()) {
-            enemyStatus.setText(monster.getName()+" terkena stun!");
-            monster.setStunStatus(false); // stun hanya berlaku 1 giliran
-        }else if (monster.getKeracunan()) {
-            enemyStatus.setText(monster.getName()+" terkena racun");
+            enemyStatus.setText(monster.getName() + " terkena stun!");
+            monster.setStunStatus(false); // stun 1 turn saja (optional)
+        } else {
+            // Monster menyerang dan tampilkan animasi
+            monsterChar.setIcon(monsterAtt);
             monster.serang(player);
-        }else if (monster.getRageStatus()) {
-            playerStatus.setText("sedang mode rage");
-            monster.serang(player);
-            hpBar1.setMaximum(player.getMaxHp());
-            hpBar1.setValue(player.getHealth());
-        }else {
-            monster.serang(player);
-            hpBar1.setMaximum(player.getMaxHp());
-            hpBar1.setValue(player.getHealth());
-        }
-        turn++;
-        
-        
-        
-        if (player instanceof RoleMage) {
-                        ((RoleMage)player).regenMana(5);
-                    }else if (player instanceof RoleWarrior) {
-                    ((RoleWarrior)player).regenEnergy(5);
+
+            // Timer untuk mengembalikan monster ke idle
+            Timer returnToIdle = new Timer(800, new ActionListener() {
+                public void actionPerformed(ActionEvent e2) {
+                    monsterChar.setIcon(monsterIddle);
+                    ((Timer) e2.getSource()).stop();
                 }
+            });
+            returnToIdle.setRepeats(false);
+            returnToIdle.start();
+
+            // Update bar HP player
+            hpBar1.setMaximum(player.getMaxHp());
+            hpBar1.setValue(player.getHealth());
+
+            // Status efek tambahan
+            if (monster.getKeracunan()) {
+                enemyStatus.setText(monster.getName() + " terkena racun");
+            }
+            if (monster.getRageStatus()) {
+                playerStatus.setText("sedang mode rage");
+            } else {
+                playerStatus.setText("");
+            }
+        }
+
+        // Update giliran dan status
+        turn++;
+        if (player instanceof RoleMage) {
+            ((RoleMage) player).regenMana(5);
+        } else if (player instanceof RoleWarrior) {
+            ((RoleWarrior) player).regenEnergy(5);
+        }
+
         turnPanel.setText(Integer.toString(turn));
         checkBattleStatus();
         playerTurn = true;
-        ((Timer)e.getSource()).stop(); // hanya sekali
+        ((Timer) e.getSource()).stop();
     }
 });
+        spesialBar.setMaximum(player.getMaxMana());
+        spesialBar.setValue(player.getMana());
         timer.setRepeats(false);
         timer.start();
         
@@ -727,6 +913,16 @@ private void updateInventoryList() {
     private void hpBarEnemyStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_hpBarEnemyStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_hpBarEnemyStateChanged
+
+    private void charAreaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_charAreaMouseEntered
+        // TODO add your handling code here:
+        statBox1.setVisible(true);
+    }//GEN-LAST:event_charAreaMouseEntered
+
+    private void charAreaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_charAreaMouseExited
+        // TODO add your handling code here:
+        statBox1.setVisible(false);
+    }//GEN-LAST:event_charAreaMouseExited
 
     /**
      * @param args the command line arguments
@@ -771,6 +967,7 @@ private void updateInventoryList() {
     private javax.swing.JLabel battleMap;
     private javax.swing.JOptionPane battleNotif;
     private javax.swing.JPanel battlePanel;
+    private javax.swing.JLabel charArea;
     private javax.swing.JTextArea enemyStatus;
     private javax.swing.JTextPane errorRole;
     private javax.swing.JButton exitButton;
@@ -785,17 +982,21 @@ private void updateInventoryList() {
     private javax.swing.JTextPane levelPane;
     private javax.swing.JPanel mainMenu;
     private javax.swing.JButton menuBack;
+    private javax.swing.JLabel monsterChar;
     private javax.swing.JLabel nameBox;
     private javax.swing.JLabel nameBoxEnemy;
-    private javax.swing.JLabel piercerIddle;
     private javax.swing.JButton playButton;
+    private javax.swing.JLabel playerChar;
     private javax.swing.JTextPane playerStatus;
     private javax.swing.JButton quitButton;
     private javax.swing.JLabel roleArea;
     private javax.swing.JComboBox<String> roleBox;
     private javax.swing.JPanel roleSelect;
     private javax.swing.JButton skillButton;
+    private javax.swing.JLabel skillEfek;
+    private javax.swing.JProgressBar spesialBar;
     private javax.swing.JButton startButton;
+    private javax.swing.JTextPane statBox1;
     private javax.swing.JTextPane turnPanel;
     private javax.swing.JButton useButton;
     // End of variables declaration//GEN-END:variables

@@ -32,6 +32,24 @@ public class RoleWarrior extends Character {
     }
     public void setBonusStregth(int bonus){
         this.bonusStregth=bonus;
+
+    }
+    public int getEnergy() {
+        return energy;
+    }
+    
+    public int getMaxEnergy() {
+        return maxEnergy;
+    }
+    
+    
+    
+    public String showStatus(){
+        return "Max hp = " + getMaxHp() +
+               "\nDefense = " + getDefense() +
+               "\nAttack = " + getAttack() +
+               "\nStrength " + getStrength() +
+               "\nEnergy = " + energy;
     }
     
     @Override

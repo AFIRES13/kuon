@@ -66,6 +66,8 @@ public abstract class Monster {
             this.stunCounter=0;
         }
     }
+    
+
     public boolean getRageStatus(){
         return rageStatus;
     }
