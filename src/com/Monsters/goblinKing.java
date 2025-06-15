@@ -5,7 +5,7 @@ import com.Item.Equipment.Armor;
 
 public class goblinKing extends bosMonster{
     public goblinKing(){
-        super("Goblin king",500,40,20,50);
+        super("Fire Demon ",500,40,20,50);
     }
     public void skill(Character target){
         System.out.println(target.getName());

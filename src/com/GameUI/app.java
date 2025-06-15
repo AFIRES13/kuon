@@ -39,7 +39,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon monsterPoisoned=null;
     ImageIcon monsterStuned=null;
     ImageIcon monsterHit=null;
-    ImageIcon monsterHitPoisoned=null;
+    ImageIcon monsterAttPoisoned=null;
     
     
     
@@ -50,7 +50,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon goblinPoisoned=new ImageIcon(getClass().getResource("Goblin-RACUN.gif"));
     ImageIcon goblinStuned=new ImageIcon(getClass().getResource("Goblin-STUN.png"));
     ImageIcon goblinHit=new ImageIcon(getClass().getResource("Goblin-HIT.gif"));
-    ImageIcon goblinHitPoisoned=new ImageIcon(getClass().getResource("Goblin-RACUN-ATT.gif"));
+    ImageIcon goblinAttPoisoned=new ImageIcon(getClass().getResource("Goblin-RACUN-ATT.gif"));
     
     //piercer assets
     ImageIcon piercerIddle=new ImageIcon(getClass().getResource("Piercer-IDLE.gif"));
@@ -96,7 +96,7 @@ public class app extends javax.swing.JFrame {
         monsterStuned=goblinStuned;
         monsterHit=goblinHit;
         monsterPoisoned=goblinPoisoned;
-        monsterHitPoisoned=goblinHitPoisoned;
+        monsterAttPoisoned=goblinAttPoisoned;
     }
 
     nameBoxEnemy.setText(monster.getName());
@@ -573,7 +573,7 @@ private void updateInventoryList() {
                     monsterPoisoned=goblinPoisoned;
                     monsterStuned=goblinStuned;
                     monsterHit=goblinHit;
-                    monsterHitPoisoned=goblinHitPoisoned;
+                    monsterAttPoisoned=goblinAttPoisoned;
                 }
                 if (role.equals("Piercer")) {
                     spesialBar.setVisible(false);
@@ -674,7 +674,7 @@ private void updateInventoryList() {
         playerChar.setIcon(playerIddle);
     } else {
         if (monster.getKeracunan()) {
-            monsterChar.setIcon(monsterHitPoisoned);
+            monsterChar.setIcon(monsterAttPoisoned);
         }else{
             monsterChar.setIcon(monsterAtt);
         }
