@@ -38,12 +38,19 @@ public class app extends javax.swing.JFrame {
     ImageIcon playerHit=null;
     ImageIcon monsterPoisoned=null;
     ImageIcon monsterStuned=null;
+    ImageIcon monsterHit=null;
+    ImageIcon monsterHitPoisoned=null;
+    
+    
+    
     
     //gobllin assets
     ImageIcon goblinIddle=new ImageIcon(getClass().getResource("Goblin-IDLE.gif"));
     ImageIcon goblinAtt=new ImageIcon(getClass().getResource("Goblin-ATTACK.gif"));
     ImageIcon goblinPoisoned=new ImageIcon(getClass().getResource("Goblin-RACUN.gif"));
     ImageIcon goblinStuned=new ImageIcon(getClass().getResource("Goblin-STUN.png"));
+    ImageIcon goblinHit=new ImageIcon(getClass().getResource("Goblin-HIT.gif"));
+    ImageIcon goblinHitPoisoned=new ImageIcon(getClass().getResource("Goblin-RACUN-ATT.gif"));
     
     //piercer assets
     ImageIcon piercerIddle=new ImageIcon(getClass().getResource("Piercer-IDLE.gif"));
@@ -87,10 +94,9 @@ public class app extends javax.swing.JFrame {
         monsterAtt=goblinAtt;
         monsterPoisoned=goblinPoisoned;
         monsterStuned=goblinStuned;
-        if (monster.getKeracunan()) {
-            monsterIddle=goblinPoisoned;
-        }
+        monsterHit=goblinHit;
         monsterPoisoned=goblinPoisoned;
+        monsterHitPoisoned=goblinHitPoisoned;
     }
 
     nameBoxEnemy.setText(monster.getName());
@@ -369,7 +375,7 @@ private void updateInventoryList() {
         playerStatus1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         battlePanel.add(playerStatus1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 390, -1));
 
-        monsterChar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Goblin-RACUN.gif"))); // NOI18N
+        monsterChar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Goblin-IDLE.gif"))); // NOI18N
         monsterChar.setToolTipText("");
         battlePanel.add(monsterChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 330, 370));
 
@@ -566,6 +572,8 @@ private void updateInventoryList() {
                     monsterAtt=goblinAtt;
                     monsterPoisoned=goblinPoisoned;
                     monsterStuned=goblinStuned;
+                    monsterHit=goblinHit;
+                    monsterHitPoisoned=goblinHitPoisoned;
                 }
                 if (role.equals("Piercer")) {
                     spesialBar.setVisible(false);
@@ -665,7 +673,11 @@ private void updateInventoryList() {
         monsterChar.setIcon(monsterStuned);
         playerChar.setIcon(playerIddle);
     } else {
-        monsterChar.setIcon(monsterAtt);
+        if (monster.getKeracunan()) {
+            monsterChar.setIcon(monsterHitPoisoned);
+        }else{
+            monsterChar.setIcon(monsterAtt);
+        }
         monster.serang(player);
         
         playerChar.setIcon(playerHit);
@@ -772,7 +784,7 @@ private void updateInventoryList() {
         hpBarEnemy.setMaximum(monster.getMaxHp());
         hpBarEnemy.setValue(monster.getHealth());
         playerChar.setIcon(playerAtt);
-        
+        monsterChar.setIcon(monsterHit);
         int level=player.getLevel();
         levelInd.setText(Integer.toString(level));
         playerTurn = false;

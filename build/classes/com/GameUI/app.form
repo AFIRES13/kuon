@@ -382,7 +382,7 @@
         <Component class="javax.swing.JLabel" name="monsterChar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/GameUI/Goblin-RACUN.gif"/>
+              <Image iconType="3" name="/com/GameUI/Goblin-IDLE.gif"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
