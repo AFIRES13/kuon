@@ -54,6 +54,16 @@ public class app extends javax.swing.JFrame {
     ImageIcon goblinAttPoisoned=new ImageIcon(getClass().getResource("Goblin-RACUN-ATT.gif"));
     ImageIcon goblinStunedHit=new ImageIcon(getClass().getResource("Goblin-STUN-GETER.gif"));
     
+    //boss assets
+    ImageIcon bossIddle=new ImageIcon(getClass().getResource("Boss-IDLE.gif"));
+    ImageIcon bossAtt=new ImageIcon (getClass().getResource("Boss-ATTACK.gif"));
+    ImageIcon bossHit=new ImageIcon(getClass().getResource("Boss-HIT.gif"));
+    ImageIcon bossStuned=new ImageIcon(getClass().getResource("Boss-STUN-BEKU.png"));
+    ImageIcon bossStunedHit=new ImageIcon(getClass().getResource("Boss-STUN-BEKU-GETER.gif"));
+    ImageIcon bossPoisoned=new ImageIcon(getClass().getResource("Boss-IDLE-RACUN.gif"));
+    ImageIcon bossPoisonedHit=new ImageIcon(getClass().getResource("Boss-HIT-RACUN.gif"));
+    ImageIcon bossAttPoisoned=new ImageIcon(getClass().getResource("Boss-ATTACK-RACUN.gif"));
+    
     //piercer assets
     ImageIcon piercerIddle=new ImageIcon(getClass().getResource("Piercer-IDLE.gif"));
     ImageIcon piercerAtt=new ImageIcon(getClass().getResource("Piercer-ATTACK.gif"));
@@ -81,6 +91,9 @@ public class app extends javax.swing.JFrame {
         roleSelect.setVisible(false);
         errorRole.setVisible(false);
         battlePanel.setVisible(false);
+        piercerDesc.setText("Piercer\n\nkarakter yg memiliki spesial stat berupa penetration yang mampu menembus defense lawan dan juga memiliki skill yang bisa memberikan racun kepada musuh");
+        mageDesc.setText("Mage\n\nkarakter yang mampu membuat musuh tidak bergerak selama beberapa turn dengan skill nya");
+        warriorDesc.setText("Warrior\n\nmerupakan karakter dengan stat spesial berupa stregth yang mempu meningkatkan attack beserta defense nya");
         
     }
     
@@ -89,6 +102,14 @@ public class app extends javax.swing.JFrame {
     private void generateMonster(int wave) {
     if (wave ==5) {
         monster = new goblinKing();
+        monsterIddle=bossIddle;
+        monsterAtt=bossAtt;
+        monsterStuned=bossStuned;
+        monsterHit=bossHit;
+        monsterStunedHit=bossStunedHit;
+        monsterAttPoisoned=bossAttPoisoned;
+        monsterPoisoned=bossPoisoned;
+        
         
     } else {
         monster = new Goblin(wave); 
@@ -101,7 +122,7 @@ public class app extends javax.swing.JFrame {
         monsterAttPoisoned=goblinAttPoisoned;
         monsterStunedHit=goblinStunedHit;
     }
-
+    
     nameBoxEnemy.setText(monster.getName());
     hpBarEnemy.setMaximum(monster.getMaxHp());
     hpBarEnemy.setValue(monster.getHealth());
@@ -171,6 +192,9 @@ private void updateInventoryList() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
         battlePanel = new javax.swing.JPanel();
         exitButton = new javax.swing.JButton();
         nameBox = new javax.swing.JLabel();
@@ -191,6 +215,7 @@ private void updateInventoryList() {
         statBox = new javax.swing.JTextPane();
         statBoxMonster = new javax.swing.JTextPane();
         skillEfek = new javax.swing.JLabel();
+        skilDesc = new javax.swing.JTextPane();
         inventoryScroll = new javax.swing.JScrollPane();
         inventory = new javax.swing.JList<>();
         enemyStatus1 = new javax.swing.JLabel();
@@ -203,15 +228,28 @@ private void updateInventoryList() {
         menuBack = new javax.swing.JButton();
         roleBox = new javax.swing.JComboBox<>();
         startButton = new javax.swing.JButton();
+        warriorDesc = new javax.swing.JTextPane();
+        piercerDesc = new javax.swing.JTextPane();
+        mageDesc = new javax.swing.JTextPane();
         errorRole = new javax.swing.JTextPane();
+        warriorArea = new javax.swing.JLabel();
+        mageArea = new javax.swing.JLabel();
+        piercerArea = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
         mainMenu = new javax.swing.JPanel();
         playButton = new javax.swing.JButton();
         quitButton = new javax.swing.JButton();
         latarUtama = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1024, 720));
+        setMinimumSize(new java.awt.Dimension(1024, 720));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1024, 720));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -276,6 +314,14 @@ private void updateInventoryList() {
         battlePanel.add(attackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 650, 100, 30));
 
         skillButton.setText("SKILL");
+        skillButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                skillButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                skillButtonMouseExited(evt);
+            }
+        });
         skillButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 skillButtonActionPerformed(evt);
@@ -355,6 +401,11 @@ private void updateInventoryList() {
         skillEfek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Mage-SPELL.gif"))); // NOI18N
         battlePanel.add(skillEfek, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 160, -1, 340));
 
+        skilDesc.setBackground(new java.awt.Color(30, 30, 30));
+        skilDesc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white));
+        skilDesc.setForeground(new java.awt.Color(255, 255, 255));
+        battlePanel.add(skilDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 480, 110, 150));
+
         inventory.setBackground(new java.awt.Color(51, 51, 51));
         inventory.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white));
         inventory.setForeground(new java.awt.Color(255, 255, 255));
@@ -378,9 +429,9 @@ private void updateInventoryList() {
         playerStatus1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         battlePanel.add(playerStatus1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 390, -1));
 
-        monsterChar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Goblin-IDLE.gif"))); // NOI18N
+        monsterChar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Boss-IDLE.gif"))); // NOI18N
         monsterChar.setToolTipText("");
-        battlePanel.add(monsterChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 330, 370));
+        battlePanel.add(monsterChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 460, 370));
 
         playerChar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Mage-ATTACK.gif"))); // NOI18N
         battlePanel.add(playerChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 670, -1));
@@ -402,7 +453,7 @@ private void updateInventoryList() {
                 inputNamaFocusGained(evt);
             }
         });
-        roleSelect.add(inputNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 320, 230, 30));
+        roleSelect.add(inputNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 560, 230, 30));
 
         menuBack.setBackground(new java.awt.Color(255, 0, 0));
         menuBack.setText("BACK");
@@ -422,7 +473,7 @@ private void updateInventoryList() {
                 roleBoxActionPerformed(evt);
             }
         });
-        roleSelect.add(roleBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 356, 220, 60));
+        roleSelect.add(roleBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 550, 220, 60));
 
         startButton.setBackground(new java.awt.Color(153, 51, 0));
         startButton.setText("START");
@@ -431,17 +482,65 @@ private void updateInventoryList() {
                 startButtonActionPerformed(evt);
             }
         });
-        roleSelect.add(startButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 430, 120, 50));
+        roleSelect.add(startButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 630, 120, 50));
+        roleSelect.add(warriorDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 150, 220));
+
+        piercerDesc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                piercerDescMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                piercerDescMouseExited(evt);
+            }
+        });
+        roleSelect.add(piercerDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 150, 220));
+        roleSelect.add(mageDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, 150, 220));
 
         errorRole.setBackground(new java.awt.Color(255, 0, 0));
         errorRole.setForeground(new java.awt.Color(255, 255, 255));
         errorRole.setText("Silahkan Pilih Role");
         errorRole.setToolTipText("");
-        roleSelect.add(errorRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, 230, 30));
+        roleSelect.add(errorRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 230, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/resize 720 blured.png"))); // NOI18N
+        warriorArea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                warriorAreaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                warriorAreaMouseExited(evt);
+            }
+        });
+        roleSelect.add(warriorArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 360, 110, 180));
+
+        mageArea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mageAreaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mageAreaMouseExited(evt);
+            }
+        });
+        roleSelect.add(mageArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 360, 110, 180));
+
+        piercerArea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                piercerAreaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                piercerAreaMouseExited(evt);
+            }
+        });
+        roleSelect.add(piercerArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 110, 180));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/PIXEL (1024 x 720 px) (1024 x 720 px) (1).gif"))); // NOI18N
         jLabel1.setToolTipText("");
         roleSelect.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jRadioButton1.setText("jRadioButton1");
+        roleSelect.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, -1, -1));
+        roleSelect.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 270, -1, -1));
+        roleSelect.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, -1, -1));
+        roleSelect.add(jTextPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(roleSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -468,7 +567,7 @@ private void updateInventoryList() {
         });
         mainMenu.add(quitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 400, 170, 60));
 
-        latarUtama.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/resize 720.png"))); // NOI18N
+        latarUtama.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/PIXEL (1024 x 720 px) (1024 x 720 px) (1).gif"))); // NOI18N
         mainMenu.add(latarUtama, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(mainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -1, -1, 720));
@@ -483,6 +582,9 @@ private void updateInventoryList() {
         mainMenu.setVisible(false);
         menuBack.setVisible(true);
         roleSelect.setVisible(true);
+        mageDesc.setVisible(false);
+        warriorDesc.setVisible(false);
+        piercerDesc.setVisible(false);
     }//GEN-LAST:event_playButtonActionPerformed
 
     private void quitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButtonActionPerformed
@@ -519,6 +621,7 @@ private void updateInventoryList() {
                         spesialBar.setValue(player.getEnergy());
                         playerSkill=warriorSkill;
                         //playerEfek=mageEfek;
+                        skilDesc.setText("RAGE\n\nmeningkatkan Strength 2x selama 3 turn");
                         playerHit=warriorHit;
                         errorRole.setVisible(false);
 
@@ -530,6 +633,7 @@ private void updateInventoryList() {
                         playerSkill=piercerSkill;
                         playerEfek=piercerEfek;
                         playerHit=piercerHit;
+                        skilDesc.setText("POISON\n\nMenerapkan racun kepada musuh selama 3 turn");
                         errorRole.setVisible(false);
                         
 
@@ -543,6 +647,7 @@ private void updateInventoryList() {
                         playerSkill=mageSkill;
                         playerEfek=mageEfek;
                         playerHit=mageHit;
+                        skilDesc.setText("STUN\n\nMembuat musuh tidak bergerak selama turn tertentu\n\ndurasi turn = 2 + level");
                         errorRole.setVisible(false);
 
                         break;
@@ -595,6 +700,7 @@ private void updateInventoryList() {
                 statBoxMonster.setText(monster.showStatus());
                 statBoxMonster.setVisible(false);
                 statBox.setVisible(false);
+                skilDesc.setVisible(false);
                 playerChar.setIcon(playerIddle);
                 inventoryScroll.setVisible(false);
                 playerChar.setVisible(true);
@@ -692,7 +798,7 @@ private void updateInventoryList() {
 //                monsterChar.setIcon(monsterIddle);
                 if (monster.getKeracunan()) {
                     monsterChar.setIcon(monsterPoisoned);
-                    getPoisoned();
+                    
                     monsterChar.setVisible(true);
                 }else{
                     monsterChar.setIcon(monsterIddle);
@@ -813,7 +919,6 @@ private void updateInventoryList() {
 
     private void skillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skillButtonActionPerformed
         // TODO add your handling code here:
-        monsterChar.setVisible(true);
         if (playerTurn) {
     if (player instanceof RoleWarrior){
         ((RoleWarrior)player).rageSkill(turn,monster);
@@ -933,6 +1038,54 @@ private void updateInventoryList() {
         statBoxMonster.setVisible(false);
     }//GEN-LAST:event_charArea1MouseExited
 
+    private void skillButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_skillButtonMouseEntered
+        // TODO add your handling code here:
+        skilDesc.setVisible(true);
+    }//GEN-LAST:event_skillButtonMouseEntered
+
+    private void skillButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_skillButtonMouseExited
+        // TODO add your handling code here:
+        skilDesc.setVisible(false);
+    }//GEN-LAST:event_skillButtonMouseExited
+
+    private void piercerDescMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piercerDescMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_piercerDescMouseEntered
+
+    private void piercerDescMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piercerDescMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_piercerDescMouseExited
+
+    private void piercerAreaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piercerAreaMouseEntered
+        // TODO add your handling code here:
+        piercerDesc.setVisible(true);
+    }//GEN-LAST:event_piercerAreaMouseEntered
+
+    private void piercerAreaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piercerAreaMouseExited
+        // TODO add your handling code here:
+        piercerDesc.setVisible(false);
+    }//GEN-LAST:event_piercerAreaMouseExited
+
+    private void warriorAreaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_warriorAreaMouseEntered
+        // TODO add your handling code here:
+        warriorDesc.setVisible(true);
+    }//GEN-LAST:event_warriorAreaMouseEntered
+
+    private void warriorAreaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_warriorAreaMouseExited
+        // TODO add your handling code here:
+        warriorDesc.setVisible(false);
+    }//GEN-LAST:event_warriorAreaMouseExited
+
+    private void mageAreaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mageAreaMouseEntered
+        // TODO add your handling code here:
+        mageDesc.setVisible(true);
+    }//GEN-LAST:event_mageAreaMouseEntered
+
+    private void mageAreaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mageAreaMouseExited
+        // TODO add your handling code here:
+        mageDesc.setVisible(false);
+    }//GEN-LAST:event_mageAreaMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -976,6 +1129,9 @@ private void updateInventoryList() {
     private javax.swing.JLabel battleMap;
     private javax.swing.JOptionPane battleNotif;
     private javax.swing.JPanel battlePanel;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JLabel charArea;
     private javax.swing.JLabel charArea1;
     private javax.swing.JLabel enemyStatus1;
@@ -988,13 +1144,21 @@ private void updateInventoryList() {
     private javax.swing.JButton inventoryButton;
     private javax.swing.JScrollPane inventoryScroll;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel latarUtama;
     private javax.swing.JLabel levelInd;
+    private javax.swing.JLabel mageArea;
+    private javax.swing.JTextPane mageDesc;
     private javax.swing.JPanel mainMenu;
     private javax.swing.JButton menuBack;
     private javax.swing.JLabel monsterChar;
     private javax.swing.JLabel nameBox;
     private javax.swing.JLabel nameBoxEnemy;
+    private javax.swing.JLabel piercerArea;
+    private javax.swing.JTextPane piercerDesc;
     private javax.swing.JButton playButton;
     private javax.swing.JLabel playerChar;
     private javax.swing.JLabel playerStatus1;
@@ -1002,6 +1166,7 @@ private void updateInventoryList() {
     private javax.swing.JLabel roleArea;
     private javax.swing.JComboBox<String> roleBox;
     private javax.swing.JPanel roleSelect;
+    private javax.swing.JTextPane skilDesc;
     private javax.swing.JButton skillButton;
     private javax.swing.JLabel skillEfek;
     private javax.swing.JProgressBar spesialBar;
@@ -1010,5 +1175,7 @@ private void updateInventoryList() {
     private javax.swing.JTextPane statBoxMonster;
     private javax.swing.JTextPane turnPanel;
     private javax.swing.JButton useButton;
+    private javax.swing.JLabel warriorArea;
+    private javax.swing.JTextPane warriorDesc;
     // End of variables declaration//GEN-END:variables
 }
