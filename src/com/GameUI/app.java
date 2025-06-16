@@ -140,7 +140,7 @@ public class app extends javax.swing.JFrame {
         monster.itemDrop(player);
         player.takeExp(monster);
         int level=player.getLevel();
-        
+        playerChar.setIcon(playerIddle);
         levelInd.setText(Integer.toString(level));
         
         updateHpBar();
@@ -215,6 +215,7 @@ private void updateInventoryList() {
         statBox = new javax.swing.JTextPane();
         statBoxMonster = new javax.swing.JTextPane();
         skillEfek = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         skilDesc = new javax.swing.JTextPane();
         inventoryScroll = new javax.swing.JScrollPane();
         inventory = new javax.swing.JList<>();
@@ -246,10 +247,8 @@ private void updateInventoryList() {
         latarUtama = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1024, 720));
         setMinimumSize(new java.awt.Dimension(1024, 720));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1024, 720));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -262,14 +261,14 @@ private void updateInventoryList() {
                 exitButtonActionPerformed(evt);
             }
         });
-        battlePanel.add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, -1, -1));
+        battlePanel.add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
 
-        nameBox.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
+        nameBox.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         nameBox.setForeground(new java.awt.Color(0, 0, 0));
         nameBox.setText("jLabel2");
         battlePanel.add(nameBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 530, 170, 40));
 
-        nameBoxEnemy.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
+        nameBoxEnemy.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         nameBoxEnemy.setForeground(new java.awt.Color(255, 255, 255));
         nameBoxEnemy.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         nameBoxEnemy.setText("jLabel2");
@@ -330,6 +329,7 @@ private void updateInventoryList() {
         battlePanel.add(skillButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 610, 100, -1));
 
         battleNotif.setToolTipText("");
+        battleNotif.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         battleNotif.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 battleNotifAncestorAdded(evt);
@@ -389,17 +389,22 @@ private void updateInventoryList() {
         battlePanel.add(charArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 140, 150));
 
         statBox.setBackground(new java.awt.Color(30, 30, 30));
+        statBox.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         statBox.setForeground(new java.awt.Color(255, 255, 255));
         statBox.setText("qsdw");
         battlePanel.add(statBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 200, 150));
 
         statBoxMonster.setBackground(new java.awt.Color(30, 30, 30));
+        statBoxMonster.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         statBoxMonster.setForeground(new java.awt.Color(255, 255, 255));
         statBoxMonster.setText("qsdw");
         battlePanel.add(statBoxMonster, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 180, 190, 150));
 
         skillEfek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Mage-SPELL.gif"))); // NOI18N
         battlePanel.add(skillEfek, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 160, -1, 340));
+
+        jLabel2.setText("jLabel2");
+        battlePanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(437, 76, 100, 70));
 
         skilDesc.setBackground(new java.awt.Color(30, 30, 30));
         skilDesc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white));
@@ -444,6 +449,7 @@ private void updateInventoryList() {
         roleSelect.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         inputNama.setBackground(new java.awt.Color(255, 255, 255));
+        inputNama.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         inputNama.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         inputNama.setText("Masukan Nama");
         inputNama.setToolTipText("");
@@ -465,6 +471,7 @@ private void updateInventoryList() {
         roleSelect.add(menuBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 640, 110, 60));
 
         roleBox.setBackground(new java.awt.Color(153, 51, 0));
+        roleBox.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         roleBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Role", "Warrior", "Piercer", "Mage" }));
         roleBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         roleBox.setFocusTraversalPolicyProvider(true);
@@ -483,8 +490,11 @@ private void updateInventoryList() {
             }
         });
         roleSelect.add(startButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 630, 120, 50));
+
+        warriorDesc.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         roleSelect.add(warriorDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 150, 220));
 
+        piercerDesc.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         piercerDesc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 piercerDescMouseEntered(evt);
@@ -494,9 +504,12 @@ private void updateInventoryList() {
             }
         });
         roleSelect.add(piercerDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 150, 220));
+
+        mageDesc.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         roleSelect.add(mageDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, 150, 220));
 
         errorRole.setBackground(new java.awt.Color(255, 0, 0));
+        errorRole.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         errorRole.setForeground(new java.awt.Color(255, 255, 255));
         errorRole.setText("Silahkan Pilih Role");
         errorRole.setToolTipText("");
@@ -550,22 +563,24 @@ private void updateInventoryList() {
         mainMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         playButton.setBackground(new java.awt.Color(145, 81, 5));
+        playButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         playButton.setText("PLAY");
         playButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 playButtonActionPerformed(evt);
             }
         });
-        mainMenu.add(playButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 320, 170, 60));
+        mainMenu.add(playButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 170, 60));
 
         quitButton.setBackground(new java.awt.Color(119, 57, 0));
+        quitButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         quitButton.setText("QUIT");
         quitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 quitButtonActionPerformed(evt);
             }
         });
-        mainMenu.add(quitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 400, 170, 60));
+        mainMenu.add(quitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, 170, 60));
 
         latarUtama.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/PIXEL (1024 x 720 px) (1024 x 720 px) (1).gif"))); // NOI18N
         mainMenu.add(latarUtama, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -760,13 +775,6 @@ private void updateInventoryList() {
         }
     }
     
-    private void getPoisoned(){
-        if (monster.getKeracunan()) {
-            monsterIddle=monsterPoisoned;
-        }else{
-            
-        }
-    }
     
     private void monsterCounterAttack() {
     // Efek spesial per role
@@ -816,7 +824,7 @@ private void updateInventoryList() {
         
 
         if (monster.getKeracunan()) {
-            getPoisoned();
+            monsterChar.setIcon(monsterPoisoned);
             enemyStatus1.setText(monster.getName() + " terkena racun");
         } else {
             
@@ -1144,6 +1152,7 @@ private void updateInventoryList() {
     private javax.swing.JButton inventoryButton;
     private javax.swing.JScrollPane inventoryScroll;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
