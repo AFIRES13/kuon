@@ -426,13 +426,13 @@
         <Component class="javax.swing.JLabel" name="monsterChar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/GameUI/Boss-IDLE.gif"/>
+              <Image iconType="3" name="/com/GameUI/Boss-HIT.gif"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="520" y="160" width="460" height="370"/>
+              <AbsoluteConstraints x="500" y="70" width="520" height="520"/>
             </Constraint>
           </Constraints>
         </Component>

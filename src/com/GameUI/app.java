@@ -429,9 +429,9 @@ private void updateInventoryList() {
         playerStatus1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         battlePanel.add(playerStatus1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 390, -1));
 
-        monsterChar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Boss-IDLE.gif"))); // NOI18N
+        monsterChar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Boss-HIT.gif"))); // NOI18N
         monsterChar.setToolTipText("");
-        battlePanel.add(monsterChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 460, 370));
+        battlePanel.add(monsterChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 520, 520));
 
         playerChar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Mage-ATTACK.gif"))); // NOI18N
         battlePanel.add(playerChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 670, -1));
