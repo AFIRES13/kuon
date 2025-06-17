@@ -42,6 +42,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon monsterAttPoisoned=null;
     ImageIcon monsterStunedHit=null;
     ImageIcon playerDeath=null;
+    ImageIcon monsterPoisonedHit=null;
     
     
     
@@ -53,6 +54,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon goblinHit=new ImageIcon(getClass().getResource("Goblin-HIT.gif"));
     ImageIcon goblinAttPoisoned=new ImageIcon(getClass().getResource("Goblin-RACUN-ATT.gif"));
     ImageIcon goblinStunedHit=new ImageIcon(getClass().getResource("Goblin-STUN-GETER.gif"));
+    ImageIcon goblinPoisonedHit=new ImageIcon(getClass().getResource("Goblin-HIT-RACUN.gif"));
     
     //boss assets
     ImageIcon bossIddle=new ImageIcon(getClass().getResource("Boss-IDLE.gif"));
@@ -114,6 +116,7 @@ public class app extends javax.swing.JFrame {
         monsterStunedHit=bossStunedHit;
         monsterAttPoisoned=bossAttPoisoned;
         monsterPoisoned=bossPoisoned;
+        monsterPoisonedHit=bossPoisonedHit;
         
         
     } else {
@@ -126,6 +129,7 @@ public class app extends javax.swing.JFrame {
         monsterPoisoned=goblinPoisoned;
         monsterAttPoisoned=goblinAttPoisoned;
         monsterStunedHit=goblinStunedHit;
+        monsterPoisonedHit=goblinPoisonedHit;
     }
     
     nameBoxEnemy.setText(monster.getName());
@@ -744,6 +748,7 @@ private void updateInventoryList() {
                     monsterHit=goblinHit;
                     monsterAttPoisoned=goblinAttPoisoned;
                     monsterStunedHit=goblinStunedHit;
+                    monsterPoisonedHit=goblinPoisonedHit;
                 }
                 if (role.equals("Piercer")) {
                     spesialBar.setVisible(false);
@@ -975,11 +980,14 @@ private void updateInventoryList() {
                 monster.skill();
                 enemyStatus2.setText(monster.getSkillStatus());
             }
-        
+            
         
             if (monster.getStunStatus()) {
                 monsterChar.setIcon(monsterStunedHit);
-            }else{
+            }else if (monster.getKeracunan()) {
+                monsterChar.setIcon(monsterPoisonedHit);
+            }
+            else{
                 monsterChar.setIcon(monsterHit);
             }
         int level=player.getLevel();
