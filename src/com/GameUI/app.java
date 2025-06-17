@@ -83,7 +83,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon warriorHit=new ImageIcon (getClass().getResource("Warrior-HIT.gif"));
     ImageIcon warriorAttSkill=new ImageIcon(getClass().getResource("Warrior-ATTACK-LIGHTNING.gif"));
     ImageIcon warriorIddleSkill=new ImageIcon(getClass().getResource("Warrior-IDLE-LIGHTNING.gif"));
-    
+    ImageIcon warriorHitSkill=new ImageIcon(getClass().getResource("Warrior-HIT-LIGHTING.gif"));
     
     
     public app() {
@@ -638,9 +638,11 @@ private void updateInventoryList() {
                         if (monster.getRageStatus()) {
                             playerIddle=warriorIddleSkill;
                             playerAtt=warriorAttSkill;
+                            playerHit=warriorHitSkill;
                         }else{
                             playerAtt=warriorAtt;
                             playerIddle=warriorIddle;
+                            playerHit=warriorHit;
                         }
                         
                         break;
@@ -755,9 +757,11 @@ private void updateInventoryList() {
         if (monster.getRageStatus()) {
                             playerIddle=warriorIddleSkill;
                             playerAtt=warriorAttSkill;
+                            playerHit=warriorHitSkill;
                         }else{
                             playerAtt=warriorAtt;
                             playerIddle=warriorIddle;
+                            playerHit=warriorHit;
                         }
     }
     private void updateHpBar(){
@@ -907,7 +911,7 @@ private void updateInventoryList() {
 
     private void attackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackButtonActionPerformed
         updateSBar();
-        warriorUpdtEfek();
+        
         monsterChar.setVisible(true);
         if (playerTurn) {
         player.serang(monster);
@@ -934,6 +938,7 @@ private void updateInventoryList() {
         ((Timer) e.getSource()).stop();
     }
 });
+        warriorUpdtEfek();
         statBoxMonster.setText(monster.showStatus());
         timer.setRepeats(false);
         timer.start();
@@ -942,7 +947,7 @@ private void updateInventoryList() {
 
     private void skillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skillButtonActionPerformed
         // TODO add your handling code here:
-        warriorUpdtEfek();
+        
         if (playerTurn) {
     if (player instanceof RoleWarrior){
         ((RoleWarrior)player).rageSkill(turn,monster);
@@ -968,6 +973,7 @@ private void updateInventoryList() {
                ((Timer) e.getSource()).stop();
     }
 });
+    warriorUpdtEfek();
     statBoxMonster.setText(monster.showStatus());
     updateSBar();
     timer.setRepeats(false);
@@ -992,7 +998,6 @@ private void updateInventoryList() {
 
     private void useButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useButtonActionPerformed
         // TODO add your handling code here:
-        warriorUpdtEfek();
           int selectedIndex = inventory.getSelectedIndex();
           monsterChar.setVisible(true);
     if (selectedIndex != -1 && player != null) {
@@ -1016,6 +1021,7 @@ private void updateInventoryList() {
         ((Timer) e.getSource()).stop();
     }
 });
+        warriorUpdtEfek();
         updateSBar();
         timer.setRepeats(false);
         timer.start();
