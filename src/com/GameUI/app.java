@@ -258,8 +258,8 @@ private void updateInventoryList() {
         piercerArea = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         mainMenu = new javax.swing.JPanel();
-        exitButton2 = new javax.swing.JButton();
         aboutPanel = new javax.swing.JLabel();
+        exitButton2 = new javax.swing.JButton();
         playButton = new javax.swing.JButton();
         aboutButton = new javax.swing.JButton();
         quitButton = new javax.swing.JButton();
@@ -268,6 +268,7 @@ private void updateInventoryList() {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1024, 720));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1024, 720));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -492,7 +493,7 @@ private void updateInventoryList() {
                 inputNamaFocusGained(evt);
             }
         });
-        roleSelect.add(inputNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 560, 230, 30));
+        roleSelect.add(inputNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 580, 230, 30));
 
         menuBack.setBackground(new java.awt.Color(255, 0, 0));
         menuBack.setText("BACK");
@@ -501,7 +502,7 @@ private void updateInventoryList() {
                 menuBackActionPerformed(evt);
             }
         });
-        roleSelect.add(menuBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 640, 110, 60));
+        roleSelect.add(menuBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 630, 110, 60));
 
         roleBox.setBackground(new java.awt.Color(153, 51, 0));
         roleBox.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -513,7 +514,7 @@ private void updateInventoryList() {
                 roleBoxActionPerformed(evt);
             }
         });
-        roleSelect.add(roleBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 550, 220, 60));
+        roleSelect.add(roleBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 570, 220, 60));
 
         startButton.setBackground(new java.awt.Color(153, 51, 0));
         startButton.setText("START");
@@ -522,10 +523,10 @@ private void updateInventoryList() {
                 startButtonActionPerformed(evt);
             }
         });
-        roleSelect.add(startButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 630, 120, 50));
+        roleSelect.add(startButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 650, 120, 50));
 
         warriorDesc.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        roleSelect.add(warriorDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 150, 220));
+        roleSelect.add(warriorDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 150, 220));
 
         piercerDesc.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         piercerDesc.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -536,10 +537,10 @@ private void updateInventoryList() {
                 piercerDescMouseExited(evt);
             }
         });
-        roleSelect.add(piercerDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 150, 220));
+        roleSelect.add(piercerDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, 150, 220));
 
         mageDesc.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        roleSelect.add(mageDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, 150, 220));
+        roleSelect.add(mageDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 140, 150, 220));
 
         errorRole.setBackground(new java.awt.Color(255, 0, 0));
         errorRole.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -556,7 +557,7 @@ private void updateInventoryList() {
                 warriorAreaMouseExited(evt);
             }
         });
-        roleSelect.add(warriorArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 360, 110, 180));
+        roleSelect.add(warriorArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, 110, 180));
 
         mageArea.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -566,7 +567,7 @@ private void updateInventoryList() {
                 mageAreaMouseExited(evt);
             }
         });
-        roleSelect.add(mageArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 360, 110, 180));
+        roleSelect.add(mageArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 110, 180));
 
         piercerArea.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -576,9 +577,9 @@ private void updateInventoryList() {
                 piercerAreaMouseExited(evt);
             }
         });
-        roleSelect.add(piercerArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 110, 180));
+        roleSelect.add(piercerArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 350, 110, 180));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/PIXEL (1024 x 720 px) (1024 x 720 px) (1).gif"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/pilih role.gif"))); // NOI18N
         jLabel1.setToolTipText("");
         roleSelect.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -589,6 +590,9 @@ private void updateInventoryList() {
         mainMenu.setPreferredSize(new java.awt.Dimension(1024, 720));
         mainMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        aboutPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/about.gif"))); // NOI18N
+        mainMenu.add(aboutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         exitButton2.setBackground(new java.awt.Color(255, 0, 0));
         exitButton2.setForeground(new java.awt.Color(255, 255, 255));
         exitButton2.setText("X");
@@ -598,9 +602,6 @@ private void updateInventoryList() {
             }
         });
         mainMenu.add(exitButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-        aboutPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/about.gif"))); // NOI18N
-        mainMenu.add(aboutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         playButton.setBackground(new java.awt.Color(145, 81, 5));
         playButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -633,7 +634,7 @@ private void updateInventoryList() {
         mainMenu.add(quitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, 170, 60));
 
         latarUtama.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/tampilan depan (1024 x 720 px).gif"))); // NOI18N
-        mainMenu.add(latarUtama, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        mainMenu.add(latarUtama, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, -1));
 
         getContentPane().add(mainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -1, -1, 720));
 
