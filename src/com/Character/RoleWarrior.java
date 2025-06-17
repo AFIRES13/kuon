@@ -62,15 +62,19 @@ public class RoleWarrior extends Character {
     public void rageSkill(int turnSekarang,Monster target){
         if (rageDuration > 0) {
             System.out.println("Saat ini sedang dalam mode rage");
+            setSkillStatus("masih dalam mode rage");
         } else if (energy < 20) {
             System.out.println("Energy tidak cukup untuk mengaktifkan rage");
+            setSkillStatus("Energy tidak cukup untuk rage");
         } else {
             rageStrength=baseStrength;
             System.out.println(getName() + " Mengaktifkan mode rage!");
             System.out.println("Strength sekarang = "+getStrength());
             rageDuration = turnSekarang + 3;
             energy -= 20;
-            target.setRageStatus(true);;
+            target.setRageStatus(true);
+            setSkillStatus("");
+            
 
         }
     }
@@ -80,11 +84,13 @@ public class RoleWarrior extends Character {
             rageStrength=0;
             rageDuration=0;
             target.setRageStatus(false);
+            setSkillStatus("");
         }
     }
     public void resetRage(Monster target){
         target.setRageStatus(false);
         rageDuration=0;
+        setSkillStatus("");
     }
     @Override
     public void serang(Monster target) {

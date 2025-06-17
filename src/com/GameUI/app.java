@@ -88,6 +88,8 @@ public class app extends javax.swing.JFrame {
     
     public app() {
         initComponents();
+        aboutPanel.setVisible(false);
+        exitButton2.setVisible(false);
         roleSelect.setVisible(false);
         errorRole.setVisible(false);
         battlePanel.setVisible(false);
@@ -219,6 +221,7 @@ private void updateInventoryList() {
         inventoryScroll = new javax.swing.JScrollPane();
         inventory = new javax.swing.JList<>();
         enemyStatus1 = new javax.swing.JLabel();
+        playerStatus2 = new javax.swing.JLabel();
         playerStatus1 = new javax.swing.JLabel();
         monsterChar = new javax.swing.JLabel();
         playerChar = new javax.swing.JLabel();
@@ -237,6 +240,8 @@ private void updateInventoryList() {
         piercerArea = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         mainMenu = new javax.swing.JPanel();
+        exitButton2 = new javax.swing.JButton();
+        aboutPanel = new javax.swing.JLabel();
         playButton = new javax.swing.JButton();
         aboutButton = new javax.swing.JButton();
         quitButton = new javax.swing.JButton();
@@ -345,13 +350,14 @@ private void updateInventoryList() {
         });
         battlePanel.add(inventoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 570, -1, -1));
 
-        useButton.setText("USE");
+        useButton.setText("CANCEL");
+        useButton.setActionCommand("CANCEL");
         useButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useButtonActionPerformed(evt);
             }
         });
-        battlePanel.add(useButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 670, 60, 30));
+        battlePanel.add(useButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 660, 80, 30));
 
         charArea1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -408,6 +414,11 @@ private void updateInventoryList() {
             public String getElementAt(int i) { return strings[i]; }
         });
         inventory.setToolTipText("");
+        inventory.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                inventoryValueChanged(evt);
+            }
+        });
         inventoryScroll.setViewportView(inventory);
 
         battlePanel.add(inventoryScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 500, -1, -1));
@@ -416,6 +427,11 @@ private void updateInventoryList() {
         enemyStatus1.setForeground(new java.awt.Color(255, 255, 51));
         enemyStatus1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         battlePanel.add(enemyStatus1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, 390, -1));
+
+        playerStatus2.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+        playerStatus2.setForeground(new java.awt.Color(255, 255, 51));
+        playerStatus2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        battlePanel.add(playerStatus2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 390, 20));
 
         playerStatus1.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
         playerStatus1.setForeground(new java.awt.Color(255, 255, 51));
@@ -544,6 +560,19 @@ private void updateInventoryList() {
         mainMenu.setForeground(new java.awt.Color(0, 0, 0));
         mainMenu.setPreferredSize(new java.awt.Dimension(1024, 720));
         mainMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        exitButton2.setBackground(new java.awt.Color(255, 0, 0));
+        exitButton2.setForeground(new java.awt.Color(255, 255, 255));
+        exitButton2.setText("X");
+        exitButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButton2ActionPerformed(evt);
+            }
+        });
+        mainMenu.add(exitButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, -1, -1));
+
+        aboutPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/about.png"))); // NOI18N
+        mainMenu.add(aboutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         playButton.setBackground(new java.awt.Color(145, 81, 5));
         playButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -793,7 +822,9 @@ private void updateInventoryList() {
     
     private void monsterCounterAttack() {
     // Efek spesial per role
-    warriorUpdtEfek();
+        if (player instanceof RoleWarrior) {
+            warriorUpdtEfek();
+        }
     if (player instanceof RoleMage) {
         ((RoleMage) player).efekStun(turn, monster);
     } else if (player instanceof RolePiercer) {
@@ -938,7 +969,9 @@ private void updateInventoryList() {
         ((Timer) e.getSource()).stop();
     }
 });
-        warriorUpdtEfek();
+         if (player instanceof RoleWarrior) {
+            warriorUpdtEfek();
+        }
         statBoxMonster.setText(monster.showStatus());
         timer.setRepeats(false);
         timer.start();
@@ -959,7 +992,22 @@ private void updateInventoryList() {
         skillEfek.setVisible(true);
         monsterChar.setIcon(monsterStuned);
         ((RoleMage)player).stunSkill(turn, monster);
+        
     }
+    
+    playerStatus2.setText(player.getStatus());
+    playerStatus2.setVisible(true);
+    Timer timer2=new Timer(5000,new ActionListener(){
+       public void actionPerformed(ActionEvent e){
+           playerStatus2.setVisible(false);
+       } 
+    });
+    timer2.setRepeats(false);
+    timer2.start();
+    
+    
+    
+    
     playerChar.setIcon(playerSkill);
     hpBarEnemy.setMaximum(monster.getMaxHp());
     hpBarEnemy.setValue(monster.getHealth());
@@ -973,7 +1021,9 @@ private void updateInventoryList() {
                ((Timer) e.getSource()).stop();
     }
 });
-    warriorUpdtEfek();
+     if (player instanceof RoleWarrior) {
+            warriorUpdtEfek();
+        }
     statBoxMonster.setText(monster.showStatus());
     updateSBar();
     timer.setRepeats(false);
@@ -1021,7 +1071,9 @@ private void updateInventoryList() {
         ((Timer) e.getSource()).stop();
     }
 });
-        warriorUpdtEfek();
+         if (player instanceof RoleWarrior) {
+            warriorUpdtEfek();
+        }
         updateSBar();
         timer.setRepeats(false);
         timer.start();
@@ -1114,7 +1166,22 @@ private void updateInventoryList() {
 
     private void aboutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutButtonActionPerformed
         // TODO add your handling code here:
+        aboutPanel.setVisible(true);
+        exitButton2.setVisible(true);
     }//GEN-LAST:event_aboutButtonActionPerformed
+
+    private void inventoryValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_inventoryValueChanged
+        // TODO add your handling code here
+        if (inventory.getSelectedIndex() != -1) {
+                useButton.setText("USE");
+            } 
+    }//GEN-LAST:event_inventoryValueChanged
+
+    private void exitButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButton2ActionPerformed
+        // TODO add your handling code here:
+        aboutPanel.setVisible(false);
+        exitButton2.setVisible(false);
+    }//GEN-LAST:event_exitButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1156,6 +1223,7 @@ private void updateInventoryList() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aboutButton;
+    private javax.swing.JLabel aboutPanel;
     private javax.swing.JButton attackButton;
     private javax.swing.JLabel battleMap;
     private javax.swing.JOptionPane battleNotif;
@@ -1168,6 +1236,7 @@ private void updateInventoryList() {
     private javax.swing.JLabel enemyStatus1;
     private javax.swing.JTextPane errorRole;
     private javax.swing.JButton exitButton;
+    private javax.swing.JButton exitButton2;
     private javax.swing.JProgressBar hpBar1;
     private javax.swing.JProgressBar hpBarEnemy;
     private javax.swing.JTextField inputNama;
@@ -1189,6 +1258,7 @@ private void updateInventoryList() {
     private javax.swing.JButton playButton;
     private javax.swing.JLabel playerChar;
     private javax.swing.JLabel playerStatus1;
+    private javax.swing.JLabel playerStatus2;
     private javax.swing.JButton quitButton;
     private javax.swing.JLabel roleArea;
     private javax.swing.JComboBox<String> roleBox;

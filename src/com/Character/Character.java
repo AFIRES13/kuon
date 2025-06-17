@@ -27,6 +27,7 @@ public abstract class Character {
     private int maxMana;
     private int energy;
     private int maxEnergy;
+    private String skillStatus;
     
     //konstruktor
     public Character(String nama, int baseHealth, int baseAttack, int baseDefense){
@@ -84,7 +85,9 @@ public abstract class Character {
     public int getMaxEnergy() {
         return maxEnergy;
     }
-    
+    public String getStatus(){
+        return skillStatus;
+    }
     
     //setter
     
@@ -102,6 +105,9 @@ public abstract class Character {
     }
     public void setName(String name){
         this.nama=name;
+    }
+    public void setSkillStatus(String SkillStatus){
+        this.skillStatus=SkillStatus;
     }
 
     //method

@@ -50,6 +50,7 @@ public void stunSkill(int turnSekarang, Monster target){
         System.out.println(target.getName() + " terkena stun");
     } else {
         System.out.println("Mana tidak cukup untuk menggunakan skill stun");
+        setSkillStatus("mana tidak cucup");
     }
 }
 public void efekStun(int turnSekarang,Monster target){
