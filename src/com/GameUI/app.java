@@ -43,6 +43,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon monsterStunedHit=null;
     ImageIcon playerDeath=null;
     ImageIcon monsterPoisonedHit=null;
+    ImageIcon monsterIcon=null;
     
     
     
@@ -55,6 +56,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon goblinAttPoisoned=new ImageIcon(getClass().getResource("Goblin-RACUN-ATT.gif"));
     ImageIcon goblinStunedHit=new ImageIcon(getClass().getResource("Goblin-STUN-GETER.gif"));
     ImageIcon goblinPoisonedHit=new ImageIcon(getClass().getResource("Goblin-HIT-RACUN.gif"));
+    ImageIcon goblinIcon=new ImageIcon(getClass().getResource("Goblin-ICON.gif"));
     
     //boss assets
     ImageIcon bossIddle=new ImageIcon(getClass().getResource("Boss-IDLE.gif"));
@@ -66,6 +68,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon bossPoisonedHit=new ImageIcon(getClass().getResource("Boss-HIT-RACUN.gif"));
     ImageIcon bossAttPoisoned=new ImageIcon(getClass().getResource("Boss-ATTACK-RACUN.gif"));
     
+    
     //piercer assets
     ImageIcon piercerIddle=new ImageIcon(getClass().getResource("Piercer-IDLE.gif"));
     ImageIcon piercerAtt=new ImageIcon(getClass().getResource("Piercer-ATTACK.gif"));
@@ -73,6 +76,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon piercerEfek=new ImageIcon(getClass().getResource("Piercer-SPELL.gif"));
     ImageIcon piercerHit=new ImageIcon(getClass().getResource("Piercer-HIT.gif"));
     ImageIcon piercerDeath=new ImageIcon(getClass().getResource("Piercer-DEATH.gif"));
+    
     //mage assets
     ImageIcon mageIddle=new ImageIcon (getClass().getResource("Mage-IDLE.gif"));
     ImageIcon mageAtt=new ImageIcon (getClass().getResource("Mage-ATTACK.gif"));
@@ -80,6 +84,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon mageEfek=new ImageIcon (getClass().getResource("Mage-SPELL.gif"));
     ImageIcon mageHit=new ImageIcon (getClass().getResource("Mage-HIT.gif"));
     ImageIcon mageDeath=new ImageIcon(getClass().getResource("Mage-DEATH.gif"));
+    
     //warrior assets
     ImageIcon warriorIddle=new ImageIcon (getClass().getResource("Warrior-IDLE.gif"));
     ImageIcon warriorAtt=new ImageIcon (getClass().getResource("Warrior-ATTACK.gif"));
@@ -101,7 +106,6 @@ public class app extends javax.swing.JFrame {
         piercerDesc.setText("Piercer\n\nkarakter yg memiliki spesial stat berupa penetration yang mampu menembus defense lawan dan juga memiliki skill yang bisa memberikan racun kepada musuh");
         mageDesc.setText("Mage\n\nkarakter yang mampu membuat musuh tidak bergerak selama beberapa turn dengan skill nya");
         warriorDesc.setText("Warrior\n\nmerupakan karakter dengan stat spesial berupa stregth yang mempu meningkatkan attack beserta defense nya");
-        
     }
     
     
@@ -116,9 +120,7 @@ public class app extends javax.swing.JFrame {
         monsterStunedHit=bossStunedHit;
         monsterAttPoisoned=bossAttPoisoned;
         monsterPoisoned=bossPoisoned;
-        monsterPoisonedHit=bossPoisonedHit;
-        
-        
+        monsterPoisonedHit=bossPoisonedHit;       
     } else {
         monster = new Goblin(wave); 
         monsterIddle=goblinIddle;
@@ -130,6 +132,7 @@ public class app extends javax.swing.JFrame {
         monsterAttPoisoned=goblinAttPoisoned;
         monsterStunedHit=goblinStunedHit;
         monsterPoisonedHit=goblinPoisonedHit;
+        monsterIcon=goblinIcon;
     }
     
     nameBoxEnemy.setText(monster.getName());
@@ -142,7 +145,7 @@ public class app extends javax.swing.JFrame {
             }
 }
     private void monsterMati(){
-        int levelAwal=player.getLevel();
+      
         battleNotif.showMessageDialog(this,monster.getName() +" telah mati");
         
         wave++;
@@ -151,14 +154,13 @@ public class app extends javax.swing.JFrame {
         int level=player.getLevel();
         playerChar.setIcon(playerIddle);
         levelInd.setText(Integer.toString(level));
-        
         updateHpBar();
         updateSBar();
         turnNumber.setText(Integer.toString(turn));
         enemyStatus1.setText("");
         statBox.setText(player.showStatus());
         statBoxMonster.setText(monster.showStatus());
-        
+        iconMonster.setIcon(monsterIcon);
         updateInventoryList();
     }
 
@@ -166,9 +168,9 @@ private void checkBattleStatus() {
     if (monster.mati()) {
         monsterMati();
         turn=1;
-        turnNumber.setText(Integer.toString(turn));
+        turnNumber.setText("TURN "+Integer.toString(turn));
         playerChar.setIcon(playerIddle);
-        
+        iconMonster.setIcon(monsterIcon);
         generateMonster(wave);
         if (player instanceof RoleMage) {
                 ((RoleMage) player).resetStun();
@@ -187,6 +189,7 @@ private void checkBattleStatus() {
         playButton.setVisible(true);
         quitButton.setVisible(true);
         aboutButton.setVisible(true);
+        resetGame();
         
     }
 }
@@ -215,6 +218,7 @@ private void updateInventoryList() {
         hpBarEnemy = new javax.swing.JProgressBar();
         spesialBar = new javax.swing.JProgressBar();
         levelInd = new javax.swing.JLabel();
+        iconMonster = new javax.swing.JLabel();
         roleArea = new javax.swing.JLabel();
         attackButton = new javax.swing.JButton();
         skillButton = new javax.swing.JButton();
@@ -311,6 +315,9 @@ private void updateInventoryList() {
         levelInd.setText("1");
         battlePanel.add(levelInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, 20, 20));
 
+        iconMonster.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Goblin-ICON.gif"))); // NOI18N
+        battlePanel.add(iconMonster, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 570, 40, -1));
+
         roleArea.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         roleArea.setForeground(new java.awt.Color(0, 0, 0));
         roleArea.setText("jLabel2");
@@ -362,7 +369,6 @@ private void updateInventoryList() {
         battlePanel.add(inventoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 570, -1, -1));
 
         useButton.setText("CANCEL");
-        useButton.setActionCommand("CANCEL");
         useButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useButtonActionPerformed(evt);
@@ -400,7 +406,7 @@ private void updateInventoryList() {
         statBoxMonster.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         statBoxMonster.setForeground(new java.awt.Color(255, 255, 255));
         statBoxMonster.setText("qsdw");
-        battlePanel.add(statBoxMonster, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 180, 190, 150));
+        battlePanel.add(statBoxMonster, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 60, 190, 270));
 
         skillEfek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Mage-SPELL.gif"))); // NOI18N
         battlePanel.add(skillEfek, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 160, -1, 340));
@@ -408,7 +414,7 @@ private void updateInventoryList() {
         turnNumber.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         turnNumber.setForeground(new java.awt.Color(255, 255, 51));
         turnNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        turnNumber.setText("1");
+        turnNumber.setText("TURN 1");
         battlePanel.add(turnNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 240, 70));
 
         skilDesc.setBackground(new java.awt.Color(30, 30, 30));
@@ -585,9 +591,9 @@ private void updateInventoryList() {
                 exitButton2ActionPerformed(evt);
             }
         });
-        mainMenu.add(exitButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, -1, -1));
+        mainMenu.add(exitButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        aboutPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/about.png"))); // NOI18N
+        aboutPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/about.gif"))); // NOI18N
         mainMenu.add(aboutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         playButton.setBackground(new java.awt.Color(145, 81, 5));
@@ -772,7 +778,6 @@ private void updateInventoryList() {
                 playerChar.setVisible(true);
                 monsterChar.setVisible(true);
                 monsterChar.setIcon(monsterIddle);
-                int darah=player.getHealth();
                 battlePanel.setVisible(true);
                 exitButton.setVisible(true);
                 nameBox.setText(player.getName());
@@ -783,14 +788,14 @@ private void updateInventoryList() {
                 hpBarEnemy.setValue(monster.getHealth());
                 roleArea.setText(player.getRole());
                 levelInd.setVisible(true);
-                updateHpBar();
+                iconMonster.setVisible(true);
                 roleSelect.setVisible(false);
                 mainMenu.setVisible(false);
                 playButton.setVisible(false);
                 quitButton.setVisible(false);
                 battleNotif.setVisible(false);
                 updateHpBar();
-                turnNumber.setText(Integer.toString(turn));
+                turnNumber.setText("TURN "+Integer.toString(turn));
                 for (int i=0; i<5; i++) {
                     player.addItem(new HealingPotion());
                 }
@@ -855,12 +860,13 @@ private void updateInventoryList() {
         monsterChar.setIcon(monsterStuned);
         playerChar.setIcon(playerIddle);
     } else {
+        
+        monster.serang(player);
         if (monster.getKeracunan()) {
             monsterChar.setIcon(monsterAttPoisoned);
         }else{
             monsterChar.setIcon(monsterAtt);
         }
-        monster.serang(player);
         
         if (player.mati()) {
             playerChar.setIcon(playerDeath);
@@ -874,7 +880,6 @@ private void updateInventoryList() {
 //                monsterChar.setIcon(monsterIddle);
                 if (monster.getKeracunan()) {
                     monsterChar.setIcon(monsterPoisoned);
-                    monsterChar.setVisible(true);
                 }else{
                     monsterChar.setIcon(monsterIddle);
                 }
@@ -891,7 +896,7 @@ private void updateInventoryList() {
         
 
         if (monster.getKeracunan()) {
-            monsterChar.setIcon(monsterPoisoned);
+            
             enemyStatus1.setText(monster.getName() + " terkena racun");
         } else {
             
@@ -950,7 +955,8 @@ private void updateInventoryList() {
     playerChar.setIcon(null);
     aboutButton.setVisible(true);
     monsterChar.setIcon(null);
-
+    iconMonster.setVisible(false);
+    monsterIcon=null;
     // Reset input
     inputNama.setText("Masukan Nama");
     roleBox.setSelectedIndex(0);
@@ -960,11 +966,7 @@ private void updateInventoryList() {
         resetGame();
     }//GEN-LAST:event_exitButtonActionPerformed
 
-    private void bossSkill(){
-        if (monster.getHealth()<150) {
-            
-        }
-    }
+    
     
     private void attackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackButtonActionPerformed
         updateSBar();
@@ -1273,6 +1275,7 @@ private void updateInventoryList() {
     private javax.swing.JButton exitButton2;
     private javax.swing.JProgressBar hpBar1;
     private javax.swing.JProgressBar hpBarEnemy;
+    private javax.swing.JLabel iconMonster;
     private javax.swing.JTextField inputNama;
     private javax.swing.JList<String> inventory;
     private javax.swing.JButton inventoryButton;

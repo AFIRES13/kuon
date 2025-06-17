@@ -31,7 +31,7 @@ public class RolePiercer extends Character{
 
         if (turnSekarang <= poisonDuration) {
             target.terSerang(poison);
-            System.out.println(target.getName()+" terkena "+poison+" damage dari keracunan");
+           
         } else {
             setSkillStatus("");
             poisonDuration = 0;
