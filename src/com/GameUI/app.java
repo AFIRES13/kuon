@@ -62,7 +62,7 @@ public class app extends javax.swing.JFrame {
     //boss assets
     ImageIcon bossIddle=new ImageIcon(getClass().getResource("Boss-IDLE.gif"));
     ImageIcon bossAtt=new ImageIcon (getClass().getResource("Boss-ATTACK.gif"));
-    ImageIcon bossHit=new ImageIcon(getClass().getResource("Boss-HIT-2.gif"));
+    ImageIcon bossHit=new ImageIcon(getClass().getResource("Boss-HIT.gif"));
     ImageIcon bossStuned=new ImageIcon(getClass().getResource("Boss-STUN-BEKU.png"));
     ImageIcon bossStunedHit=new ImageIcon(getClass().getResource("Boss-STUN-BEKU-GETER.gif"));
     ImageIcon bossPoisoned=new ImageIcon(getClass().getResource("Boss-IDLE-RACUN.gif"));
