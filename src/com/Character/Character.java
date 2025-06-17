@@ -112,14 +112,7 @@ public abstract class Character {
 
     //method
 
-    public void tampilkan(){
-        System.out.println("Nama : "+nama);
-        System.out.println("Level : "+level);
-        System.out.println("Exp : "+exp+"/"+maxExp);
-        System.out.println("HP : "+getHealth()+"/"+maxHealth);
-        System.out.println("att : "+getAttack());
-        System.out.println("def : "+getDefense());
-    }
+    
     public void terSerang(int damage) {
         baseHealth-=damage;
         if (baseHealth<0) {
@@ -141,12 +134,7 @@ public abstract class Character {
         baseHealth=maxHealth;
         baseAttack+=(level*3);
         baseDefense+=(level*2);
-//        battleNotif.showMessageDialog(this,"kamu naik level");
-        System.out.println("\n\b=====LEVEL UP=====");
-        System.out.println(getName()+" Naik ke level "+level);
-        System.out.println("HP meningkat jadi : "+maxHealth);
-        System.out.println("ATT naik menjadi : "+baseAttack);
-        System.out.println("DEF naik menjadi : "+baseDefense);
+
 
     }
     private String stat="Max hp = "+this.getMaxHp()+"\nDefense = "+this.getDefense()+"\nAttack = "+this.getAttack()+"\nl";
@@ -158,7 +146,7 @@ public abstract class Character {
     public void claimExp(Monster target){
         if (target.mati()) {
             exp+=target.getExpDrop();
-            System.out.println(getName()+" Mendapatkan "+target.getExpDrop()+" exp");
+           
             while (exp>=maxExp) {
                 exp-=maxExp;
                 levelUp();
@@ -168,58 +156,39 @@ public abstract class Character {
     
     public void heal(int regen){
         {
-            if (regen < 0) {
-                System.out.println("Jumlah penyembuhan tidak bisa negatif.");
-                return;
-            }
             
-            baseHealth += regen; // Tambahkan jumlah penyembuhan ke kesehatan
+            
+            baseHealth += regen; 
             if (baseHealth > maxHealth) {
-                baseHealth = maxHealth; // Pastikan kesehatan tidak melebihi batas maksimum
+                baseHealth = maxHealth; 
             }
             
-            System.out.println(getName() + " telah disembuhkan sebesar " + regen );
+            
         }
 
     }
-    public void show(){
-        System.out.println("\nNama : "+nama);
-        System.out.println("Level : "+level);
-        System.out.println("HP : "+getHealth()+"/"+maxHealth);
-    }
+    
     public void use(Item item){
         item.use(this);
     }
     public void addItem(Item item){
         inventory.add(item);
-        System.out.println("\n"+item.getName()+" Telah di tambahkan");
     }
-    public void showInventory(){
-        System.out.println("=====Inventory=====");
-        if (inventory.isEmpty()) {
-            isi="Inventory kosong";
-            System.out.println(isi);
-        }else{
-            for(int i=0;i<inventory.size();i++){
-                isi=(i+1)+"."+inventory.get(i).getName()+"\n";
-                System.out.println(isi);
-            }
-        }
-    }
+    
     public void useItem(int index) {
         if (index < 0 || index >= inventory.size()) {
-            System.out.println("Index item tidak valid.");
+            
             return;
         }
 
         Item item = inventory.remove(index);
         item.use(this);
-        System.out.println("Menggunakan " + item.getName());
+        
     }
     public abstract String getRole();
     public void takeExp(Monster target){
         exp+=target.getExpDrop();
-            System.out.println(getName()+" Mendapatkan "+target.getExpDrop()+" exp");
+            
             while (exp>=maxExp) {
                 exp-=maxExp;
                 levelUp();

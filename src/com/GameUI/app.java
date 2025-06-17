@@ -41,7 +41,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon monsterHit=null;
     ImageIcon monsterAttPoisoned=null;
     ImageIcon monsterStunedHit=null;
-    
+    ImageIcon playerDeatch=null;
     
     
     
@@ -84,6 +84,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon warriorAttSkill=new ImageIcon(getClass().getResource("Warrior-ATTACK-LIGHTNING.gif"));
     ImageIcon warriorIddleSkill=new ImageIcon(getClass().getResource("Warrior-IDLE-LIGHTNING.gif"));
     ImageIcon warriorHitSkill=new ImageIcon(getClass().getResource("Warrior-HIT-LIGHTING.gif"));
+    ImageIcon warriorDeath=new ImageIcon(getClass().getResource("Warrior-DEATH.gif"));
     
     
     public app() {
@@ -156,7 +157,7 @@ public class app extends javax.swing.JFrame {
     }
 
 private void checkBattleStatus() {
-    if (monster.getHealth() <= 0) {
+    if (monster.mati()) {
         monsterMati();
         turn=1;
         turnNumber.setText(Integer.toString(turn));
@@ -171,13 +172,15 @@ private void checkBattleStatus() {
                 ((RoleWarrior) player).resetRage(monster);
         }
         
-    } else if (player.getHealth() <= 0) {
+    } else if (player.mati()) {
         battleNotif.showMessageDialog(this, "Game Over!");
         battlePanel.setVisible(false);
         mainMenu.setVisible(true);
         latarUtama.setVisible(true);
         playButton.setVisible(true);
         quitButton.setVisible(true);
+        aboutButton.setVisible(true);
+        
     }
 }
 private void updateInventoryList() {
@@ -569,7 +572,7 @@ private void updateInventoryList() {
                 exitButton2ActionPerformed(evt);
             }
         });
-        mainMenu.add(exitButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, -1, -1));
+        mainMenu.add(exitButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, -1, -1));
 
         aboutPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/about.png"))); // NOI18N
         mainMenu.add(aboutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));

@@ -52,24 +52,16 @@ public class RoleWarrior extends Character {
                "\nEnergy = " + energy;
     }
     
-    @Override
-    public void tampilkan() {
-        System.out.println("\nClass : "+type);
-        super.tampilkan();
-        System.out.println("Strength : " + getStrength() + " (Base: " + baseStrength + ", Bonus: " + bonusStregth + ", Rage: " + rageStrength + ")");
-        System.out.println("Energy : "+energy+"/"+maxEnergy);
-    }
+    
     public void rageSkill(int turnSekarang,Monster target){
         if (rageDuration > 0) {
-            System.out.println("Saat ini sedang dalam mode rage");
+            
             setSkillStatus("masih dalam mode rage");
         } else if (energy < 20) {
-            System.out.println("Energy tidak cukup untuk mengaktifkan rage");
+            
             setSkillStatus("Energy tidak cukup untuk rage");
         } else {
             rageStrength=baseStrength;
-            System.out.println(getName() + " Mengaktifkan mode rage!");
-            System.out.println("Strength sekarang = "+getStrength());
             rageDuration = turnSekarang + 3;
             energy -= 20;
             target.setRageStatus(true);
@@ -80,7 +72,7 @@ public class RoleWarrior extends Character {
     }
     public void durasiSkill(int turnSekarang,Monster target){
         if (rageDuration>0 && turnSekarang>=rageDuration) {
-            System.out.println("Durasi rage telah selesai");
+            
             rageStrength=0;
             rageDuration=0;
             target.setRageStatus(false);
@@ -94,11 +86,11 @@ public class RoleWarrior extends Character {
     }
     @Override
     public void serang(Monster target) {
-        System.out.println("\n" + getName() + " menyerang " + target.getName());
+        
         int damage = getAttack() + getStrength() - target.getDefense();
         if (damage < 0){ damage = 0;}
         target.terSerang(damage);
-        System.out.println("Damage yang dihasilkan sebesar " + damage);
+        
     }
     public void regenEnergy (int amount){
         energy+=amount;
@@ -115,17 +107,13 @@ public class RoleWarrior extends Character {
     public void levelUp(){
         super.levelUp();
         baseStrength+=2;
-        System.out.println("Strength naik menjadi : "+baseStrength);
+       
     }
     @Override
     public void claimExp(Monster target){
         super.claimExp(target);
     }
-    @Override
-    public void show(){
-        super.show();
-        System.out.println("Energy : "+energy+"/"+maxEnergy);
-    }
+    
     @Override
     public String getRole(){
         return this.type;

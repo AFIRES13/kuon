@@ -27,19 +27,13 @@ public int getMaxMana(){
 public void setMana(int mana){
     this.mana=mana;
 }
-@Override
-public void tampilkan(){
-    System.out.println("\nClass : "+type);
-    super.tampilkan();
-    System.out.println("Mana : "+mana+"/"+maxMana);
-}
+
 @Override
 public void serang(Monster target){
-System.out.println("\n" + getName() + " menyerang " + target.getName());
 int damage = getAttack()-target.getDefense();
 if (damage < 0) damage = 0;
 target.terSerang(damage);
-System.out.println("Damage yang dihasilkan sebesar " + (damage));
+
 }
 public void stunSkill(int turnSekarang, Monster target){
     if (this.mana >= 20) {
@@ -47,9 +41,9 @@ public void stunSkill(int turnSekarang, Monster target){
         this.stunDuration = turnSekarang + 2+getLevel(); 
         target.setStunStatus(true);
         this.isStunning = true; 
-        System.out.println(target.getName() + " terkena stun");
+       
     } else {
-        System.out.println("Mana tidak cukup untuk menggunakan skill stun");
+       
         setSkillStatus("mana tidak cucup");
     }
 }
@@ -94,11 +88,7 @@ public void levelUp(){
 public void claimExp(Monster target){
     super.claimExp(target);
 }
-@Override
-public void show(){
-    super.show();
-    System.out.println("Mana : "+mana+"/"+maxMana);
-}
+
 @Override
 public String getRole(){
     return this.type;
