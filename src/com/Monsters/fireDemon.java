@@ -3,8 +3,8 @@ import com.Character.Character;
 import com.Item.Equipment.Weapon;
 import com.Item.Equipment.Armor;
 
-public class goblinKing extends bosMonster{
-    public goblinKing(){
+public class fireDemon extends bosMonster{
+    public fireDemon(){
         super("Fire Demon ",500,40,20,50);
     }
     public void skill(){

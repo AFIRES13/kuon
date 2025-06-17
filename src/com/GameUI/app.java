@@ -11,7 +11,7 @@ import com.Character.RoleWarrior;
 import com.Monsters.Goblin;
 import com.Monsters.Monster;
 import com.Monsters.bosMonster;
-import com.Monsters.goblinKing;
+import com.Monsters.fireDemon;
 import com.Item.Item;
 import com.Item.Consumable.*;
 import com.Item.Equipment.Sword;
@@ -68,7 +68,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon bossPoisoned=new ImageIcon(getClass().getResource("Boss-IDLE-RACUN.gif"));
     ImageIcon bossPoisonedHit=new ImageIcon(getClass().getResource("Boss-HIT-RACUN.gif"));
     ImageIcon bossAttPoisoned=new ImageIcon(getClass().getResource("Boss-ATTACK-RACUN.gif"));
-    
+    ImageIcon bossIcon=new ImageIcon(getClass().getResource("Boss-PROFILE.gif"));
     
     //piercer assets
     ImageIcon piercerIddle=new ImageIcon(getClass().getResource("Piercer-IDLE.gif"));
@@ -113,7 +113,7 @@ public class app extends javax.swing.JFrame {
     
     private void generateMonster(int wave) {
     if (wave ==5) {
-        monster = new goblinKing();
+        monster = new fireDemon();
         monsterIddle=bossIddle;
         monsterAtt=bossAtt;
         monsterStuned=bossStuned;
@@ -122,6 +122,7 @@ public class app extends javax.swing.JFrame {
         monsterAttPoisoned=bossAttPoisoned;
         monsterPoisoned=bossPoisoned;
         monsterPoisonedHit=bossPoisonedHit;       
+        monsterIcon=bossIcon;
     } else {
         monster = new Goblin(wave); 
         monsterIddle=goblinIddle;
@@ -182,7 +183,7 @@ private void checkBattleStatus() {
         }
         
     } else if (player.mati()) {
-        battleNotif.showMessageDialog(this, "Game Over!");
+        battleNotif.showMessageDialog(this, player.getName()+"Telah Mati, Game Over!");
         playerChar.setIcon(playerDeath);
         battlePanel.setVisible(false);
         mainMenu.setVisible(true);
@@ -988,7 +989,7 @@ private void updateInventoryList() {
         hpBarEnemy.setMaximum(monster.getMaxHp());
         hpBarEnemy.setValue(monster.getHealth());
         playerChar.setIcon(playerAtt);
-            if (monster instanceof goblinKing) {
+            if (monster instanceof fireDemon) {
                 monster.skill();
                 enemyStatus2.setText(monster.getSkillStatus());
             }
