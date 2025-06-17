@@ -14,6 +14,7 @@ public abstract class Monster {
     private int stunCounter=0;
     private int stunDuration=0;
     private boolean rageStatus=false;
+    private String skillStatus;
 
     public Monster(String nama, int health, int attack, int defense,int expDrop){
         this.nama=nama;
@@ -51,6 +52,12 @@ public abstract class Monster {
     }
     public int getMaxHp(){
         return maxHealth;
+    }
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+    public void setDefense(int defense){
+        this.defense=defense;
     }
     public void setStunCounter(int count){
         this.stunCounter=count;
@@ -130,5 +137,13 @@ public abstract class Monster {
         if (stunDuration > 0) {
             stunDuration--;
         }
+    }
+    public String getSkillStatus(){
+        return skillStatus;
+    }
+    public void setSkillStatus(String status){
+        this.skillStatus=status;
+    }public void skill(){
+        
     }
 }

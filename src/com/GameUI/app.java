@@ -226,6 +226,7 @@ private void updateInventoryList() {
         skilDesc = new javax.swing.JTextPane();
         inventoryScroll = new javax.swing.JScrollPane();
         inventory = new javax.swing.JList<>();
+        enemyStatus2 = new javax.swing.JLabel();
         enemyStatus1 = new javax.swing.JLabel();
         playerStatus2 = new javax.swing.JLabel();
         playerStatus1 = new javax.swing.JLabel();
@@ -268,7 +269,7 @@ private void updateInventoryList() {
                 exitButtonActionPerformed(evt);
             }
         });
-        battlePanel.add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
+        battlePanel.add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         nameBox.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         nameBox.setForeground(new java.awt.Color(0, 0, 0));
@@ -389,7 +390,7 @@ private void updateInventoryList() {
         statBox.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         statBox.setForeground(new java.awt.Color(255, 255, 255));
         statBox.setText("qsdw");
-        battlePanel.add(statBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 200, 150));
+        battlePanel.add(statBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 200, 270));
 
         statBoxMonster.setBackground(new java.awt.Color(30, 30, 30));
         statBoxMonster.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -404,7 +405,7 @@ private void updateInventoryList() {
         turnNumber.setForeground(new java.awt.Color(255, 255, 51));
         turnNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         turnNumber.setText("1");
-        battlePanel.add(turnNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, 100, 70));
+        battlePanel.add(turnNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 240, 70));
 
         skilDesc.setBackground(new java.awt.Color(30, 30, 30));
         skilDesc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white));
@@ -428,6 +429,11 @@ private void updateInventoryList() {
         inventoryScroll.setViewportView(inventory);
 
         battlePanel.add(inventoryScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 500, -1, -1));
+
+        enemyStatus2.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+        enemyStatus2.setForeground(new java.awt.Color(255, 255, 51));
+        enemyStatus2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        battlePanel.add(enemyStatus2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 190, 390, 20));
 
         enemyStatus1.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
         enemyStatus1.setForeground(new java.awt.Color(255, 255, 51));
@@ -897,7 +903,7 @@ private void updateInventoryList() {
         ((RoleWarrior) player).regenEnergy(5);
     }
 
-    turnNumber.setText(String.valueOf(turn));
+    turnNumber.setText("TURN "+String.valueOf(turn));
     checkBattleStatus();
     playerTurn = true;
 }
@@ -949,6 +955,12 @@ private void updateInventoryList() {
         resetGame();
     }//GEN-LAST:event_exitButtonActionPerformed
 
+    private void bossSkill(){
+        if (monster.getHealth()<150) {
+            
+        }
+    }
+    
     private void attackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackButtonActionPerformed
         updateSBar();
         
@@ -959,6 +971,10 @@ private void updateInventoryList() {
         hpBarEnemy.setMaximum(monster.getMaxHp());
         hpBarEnemy.setValue(monster.getHealth());
         playerChar.setIcon(playerAtt);
+            if (monster instanceof goblinKing) {
+                monster.skill();
+                enemyStatus2.setText(monster.getSkillStatus());
+            }
         
         
             if (monster.getStunStatus()) {
@@ -1243,6 +1259,7 @@ private void updateInventoryList() {
     private javax.swing.JLabel charArea;
     private javax.swing.JLabel charArea1;
     private javax.swing.JLabel enemyStatus1;
+    private javax.swing.JLabel enemyStatus2;
     private javax.swing.JTextPane errorRole;
     private javax.swing.JButton exitButton;
     private javax.swing.JButton exitButton2;

@@ -7,8 +7,14 @@ public class goblinKing extends bosMonster{
     public goblinKing(){
         super("Fire Demon ",500,40,20,50);
     }
-    public void skill(Character target){
-        System.out.println(target.getName());
+    public void skill(){
+        if (getHealth()<150) {
+            setAttack(60);
+            setDefense(30);
+            setSkillStatus("monster dalam mode rage");
+        }else{
+            setSkillStatus("");
+        }
     }
 
 
