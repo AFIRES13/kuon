@@ -41,7 +41,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon monsterHit=null;
     ImageIcon monsterAttPoisoned=null;
     ImageIcon monsterStunedHit=null;
-    ImageIcon playerDeatch=null;
+    ImageIcon playerDeath=null;
     
     
     
@@ -70,12 +70,14 @@ public class app extends javax.swing.JFrame {
     ImageIcon piercerSkill=new ImageIcon(getClass().getResource("Piercer-CAST.gif"));
     ImageIcon piercerEfek=new ImageIcon(getClass().getResource("Piercer-SPELL.gif"));
     ImageIcon piercerHit=new ImageIcon(getClass().getResource("Piercer-HIT.gif"));
+    ImageIcon piercerDeath=new ImageIcon(getClass().getResource("Piercer-DEATH.gif"));
     //mage assets
     ImageIcon mageIddle=new ImageIcon (getClass().getResource("Mage-IDLE.gif"));
     ImageIcon mageAtt=new ImageIcon (getClass().getResource("Mage-ATTACK.gif"));
     ImageIcon mageSkill=new ImageIcon (getClass().getResource("Mage-SKILL.gif"));
     ImageIcon mageEfek=new ImageIcon (getClass().getResource("Mage-SPELL.gif"));
     ImageIcon mageHit=new ImageIcon (getClass().getResource("Mage-HIT.gif"));
+    ImageIcon mageDeath=new ImageIcon(getClass().getResource("Mage-DEATH.gif"));
     //warrior assets
     ImageIcon warriorIddle=new ImageIcon (getClass().getResource("Warrior-IDLE.gif"));
     ImageIcon warriorAtt=new ImageIcon (getClass().getResource("Warrior-ATTACK.gif"));
@@ -174,6 +176,7 @@ private void checkBattleStatus() {
         
     } else if (player.mati()) {
         battleNotif.showMessageDialog(this, "Game Over!");
+        playerChar.setIcon(playerDeath);
         battlePanel.setVisible(false);
         mainMenu.setVisible(true);
         latarUtama.setVisible(true);
@@ -658,15 +661,13 @@ private void updateInventoryList() {
                 switch (playerRole) {
                     case "Warrior":
                         player=new RoleWarrior(inputNama.getText());
-                        //playerIddle=warriorIddle;
-                        //playerAtt=warriorAtt;
                         spesialBar.setMaximum(player.getMaxEnergy());
                         spesialBar.setValue(player.getEnergy());
                         playerSkill=warriorSkill;
-                        //playerEfek=mageEfek;
                         skilDesc.setText("RAGE\n\nmeningkatkan Strength 2x selama 3 turn");
                         playerHit=warriorHit;
                         errorRole.setVisible(false);
+                        playerDeath=warriorDeath;
                         if (monster.getRageStatus()) {
                             playerIddle=warriorIddleSkill;
                             playerAtt=warriorAttSkill;
@@ -685,6 +686,7 @@ private void updateInventoryList() {
                         playerSkill=piercerSkill;
                         playerEfek=piercerEfek;
                         playerHit=piercerHit;
+                        playerDeath=piercerDeath;
                         skilDesc.setText("POISON\n\nMenerapkan racun kepada musuh selama 3 turn");
                         errorRole.setVisible(false);
                         
@@ -697,6 +699,7 @@ private void updateInventoryList() {
                         spesialBar.setMaximum(player.getMaxMana());
                         spesialBar.setValue(player.getMana());
                         playerSkill=mageSkill;
+                        playerDeath=mageDeath;
                         playerEfek=mageEfek;
                         playerHit=mageHit;
                         skilDesc.setText("STUN\n\nMembuat musuh tidak bergerak selama turn tertentu\n\ndurasi turn = 2 + level");
@@ -848,7 +851,11 @@ private void updateInventoryList() {
         }
         monster.serang(player);
         
-        playerChar.setIcon(playerHit);
+        if (player.mati()) {
+            playerChar.setIcon(playerDeath);
+        }else{
+            playerChar.setIcon(playerHit);
+        }
 
         // Timer animasi balik ke idle
         Timer returnToIdle = new Timer(1000, new ActionListener() {
@@ -856,7 +863,6 @@ private void updateInventoryList() {
 //                monsterChar.setIcon(monsterIddle);
                 if (monster.getKeracunan()) {
                     monsterChar.setIcon(monsterPoisoned);
-                    
                     monsterChar.setVisible(true);
                 }else{
                     monsterChar.setIcon(monsterIddle);

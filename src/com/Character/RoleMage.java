@@ -80,9 +80,9 @@ public void resetStun(){
 @Override
 public void levelUp(){
     super.levelUp();
-    maxMana+=5;
+    
     mana=maxMana;
-    System.out.println("Mana naik menjadi : "+maxMana);
+    
 }
 @Override
 public void claimExp(Monster target){

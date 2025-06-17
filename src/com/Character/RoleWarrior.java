@@ -18,7 +18,7 @@ public class RoleWarrior extends Character {
 
     public RoleWarrior(String nama){
         super(nama, 100, 10, 5);
-        this.baseStrength=5;
+        this.baseStrength=4;
         this.type="Warrior";
         this.maxEnergy=energy;
     }
