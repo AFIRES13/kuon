@@ -44,6 +44,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon playerDeath=null;
     ImageIcon monsterPoisonedHit=null;
     ImageIcon monsterIcon=null;
+    ImageIcon playerIcon=null;
     
     
     
@@ -76,7 +77,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon piercerEfek=new ImageIcon(getClass().getResource("Piercer-SPELL.gif"));
     ImageIcon piercerHit=new ImageIcon(getClass().getResource("Piercer-HIT.gif"));
     ImageIcon piercerDeath=new ImageIcon(getClass().getResource("Piercer-DEATH.gif"));
-    
+    ImageIcon piercerIcon=new ImageIcon(getClass().getResource("Piercer-PROFILE.gif"));
     //mage assets
     ImageIcon mageIddle=new ImageIcon (getClass().getResource("Mage-IDLE.gif"));
     ImageIcon mageAtt=new ImageIcon (getClass().getResource("Mage-ATTACK.gif"));
@@ -84,7 +85,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon mageEfek=new ImageIcon (getClass().getResource("Mage-SPELL.gif"));
     ImageIcon mageHit=new ImageIcon (getClass().getResource("Mage-HIT.gif"));
     ImageIcon mageDeath=new ImageIcon(getClass().getResource("Mage-DEATH.gif"));
-    
+    ImageIcon mageIcon=new ImageIcon(getClass().getResource("Mage-PROFILE.gif"));
     //warrior assets
     ImageIcon warriorIddle=new ImageIcon (getClass().getResource("Warrior-IDLE.gif"));
     ImageIcon warriorAtt=new ImageIcon (getClass().getResource("Warrior-ATTACK.gif"));
@@ -94,7 +95,7 @@ public class app extends javax.swing.JFrame {
     ImageIcon warriorIddleSkill=new ImageIcon(getClass().getResource("Warrior-IDLE-LIGHTNING.gif"));
     ImageIcon warriorHitSkill=new ImageIcon(getClass().getResource("Warrior-HIT-LIGHTING.gif"));
     ImageIcon warriorDeath=new ImageIcon(getClass().getResource("Warrior-DEATH.gif"));
-    
+    ImageIcon warriorIcon=new ImageIcon(getClass().getResource("Warrior-PROFILE.gif"));
     
     public app() {
         initComponents();
@@ -218,6 +219,7 @@ private void updateInventoryList() {
         hpBarEnemy = new javax.swing.JProgressBar();
         spesialBar = new javax.swing.JProgressBar();
         levelInd = new javax.swing.JLabel();
+        iconPlayer = new javax.swing.JLabel();
         iconMonster = new javax.swing.JLabel();
         roleArea = new javax.swing.JLabel();
         attackButton = new javax.swing.JButton();
@@ -314,6 +316,9 @@ private void updateInventoryList() {
         levelInd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         levelInd.setText("1");
         battlePanel.add(levelInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, 20, 20));
+
+        iconPlayer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Goblin-ICON.gif"))); // NOI18N
+        battlePanel.add(iconPlayer, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 560, 40, -1));
 
         iconMonster.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/GameUI/Goblin-ICON.gif"))); // NOI18N
         battlePanel.add(iconMonster, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 570, 40, -1));
@@ -684,6 +689,7 @@ private void updateInventoryList() {
                         playerHit=warriorHit;
                         errorRole.setVisible(false);
                         playerDeath=warriorDeath;
+                        playerIcon=warriorIcon;
                         if (monster.getRageStatus()) {
                             playerIddle=warriorIddleSkill;
                             playerAtt=warriorAttSkill;
@@ -703,6 +709,7 @@ private void updateInventoryList() {
                         playerEfek=piercerEfek;
                         playerHit=piercerHit;
                         playerDeath=piercerDeath;
+                        playerIcon=piercerIcon;
                         skilDesc.setText("POISON\n\nMenerapkan racun kepada musuh selama 3 turn");
                         errorRole.setVisible(false);
                         
@@ -718,6 +725,7 @@ private void updateInventoryList() {
                         playerDeath=mageDeath;
                         playerEfek=mageEfek;
                         playerHit=mageHit;
+                        playerIcon=mageIcon;
                         skilDesc.setText("STUN\n\nMembuat musuh tidak bergerak selama turn tertentu\n\ndurasi turn = 2 + level");
                         errorRole.setVisible(false);
 
@@ -794,6 +802,8 @@ private void updateInventoryList() {
                 playButton.setVisible(false);
                 quitButton.setVisible(false);
                 battleNotif.setVisible(false);
+                iconPlayer.setVisible(true);
+                iconPlayer.setIcon(playerIcon);
                 updateHpBar();
                 turnNumber.setText("TURN "+Integer.toString(turn));
                 for (int i=0; i<5; i++) {
@@ -996,7 +1006,7 @@ private void updateInventoryList() {
         levelInd.setText(Integer.toString(level));
         playerTurn = false;
         checkBattleStatus();
-        
+        iconMonster.setIcon(monsterIcon);
         // Delay sedikit agar UI tidak membeku (opsional, bisa pakai Swing Timer)
         Timer timer = new Timer(1000, new ActionListener() {
         public void actionPerformed(ActionEvent e) {
@@ -1276,6 +1286,7 @@ private void updateInventoryList() {
     private javax.swing.JProgressBar hpBar1;
     private javax.swing.JProgressBar hpBarEnemy;
     private javax.swing.JLabel iconMonster;
+    private javax.swing.JLabel iconPlayer;
     private javax.swing.JTextField inputNama;
     private javax.swing.JList<String> inventory;
     private javax.swing.JButton inventoryButton;
